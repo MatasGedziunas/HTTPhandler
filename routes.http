@@ -1,0 +1,22 @@
+### 
+POST http://localhost/api/random1/random2
+Content-Type: application/json
+
+{
+    "Name" : "john",
+    "Age" : 3
+}
+
+###
+GET http://localhost/api/name=John&&Age=2
+Host: hoster
+User-Agent: agent
+
+###
+GET http://localhost/api/file/hello.txt
+
+{
+    "Hello" : "hi"
+}
+###
+GET http://localhost/api/fiadsle/dasdload?=
