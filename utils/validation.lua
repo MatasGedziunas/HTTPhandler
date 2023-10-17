@@ -14,8 +14,12 @@ function validator:validateHeaders(headers)
     return missingHeaders
 end
 
-function validator:validate_env(fields, validations)
+function validator:validate_env(fields, required_fields, validations)
     local fails = {}
+    fails["Field_not_defined"] = self:has_fields(fields, required_fields)
+    if not #fails["Field_not_defined"] == 0 then
+        return fails
+    end
     for _, validation in ipairs(ALL_VALIDATIONS) do
         fails[validation] = {}
     end
@@ -26,6 +30,7 @@ function validator:validate_env(fields, validations)
             if validation_type == "min_length" then
                 success = self:min_length(field)
                 if not success then
+                   -- print(field, MIN_LENGTH, success)
                     table.insert(fails["min_length"], field) 
                 end
             elseif validation_type == "max_length" then
@@ -57,6 +62,19 @@ function validator:validate_env(fields, validations)
         end
     end
     return fails
+end
+
+function validator:has_fields(fields, required_fields)
+    if fields == nil then
+        return required_fields
+    end
+    local empty_fields = {}
+    for _, required_field in ipairs(required_fields) do
+        if(fields[required_field] == nil) then
+            table.insert(empty_fields, required_field)
+        end
+    end
+    return empty_fields
 end
 
 function validator:min_length(field, min_length)

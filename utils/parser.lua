@@ -27,8 +27,13 @@ function parser:get_request_method(env)
 end
 
 function parser:parse_json(json)
-    if json and not json == "\n" then
-        return cjson.decode(json)
+    if json and string.len(json) > 1 then
+        local success, result = pcall(cjson.decode, json)
+        if success then
+            return result
+        else 
+            return nil
+        end
     end
 end 
 
