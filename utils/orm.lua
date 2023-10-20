@@ -1,9 +1,9 @@
 package.path = package.path .. ";/www/cgi-bin/?.lua;/www/?.lua"
 --require "models.user"
 DB = {
-    DEBUG = true,
+    DEBUG = false,
     new = true,
-    backtrace = true,
+    backtrace = false,
     name = "/www/cgi-bin/database.db",
     type = "sqlite3",
 }

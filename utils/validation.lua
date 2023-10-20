@@ -14,12 +14,16 @@ function validator:validateHeaders(headers)
     return missingHeaders
 end
 
+function validator:validate_content(data, expected_content_type)
+
+end
+
 function validator:validate_env(fields, required_fields, validations)
     local fails = {}
-    fails["Field_not_defined"] = self:has_fields(fields, required_fields)
-    if not #fails["Field_not_defined"] == 0 then
-        return fails
-    end
+    -- fails["Field_not_defined"] = self:has_fields(fields, required_fields)
+    -- if not #fails["Field_not_defined"] == 0 then
+    --     return fails
+    -- end
     for _, validation in ipairs(ALL_VALIDATIONS) do
         fails[validation] = {}
     end
@@ -30,7 +34,6 @@ function validator:validate_env(fields, required_fields, validations)
             if validation_type == "min_length" then
                 success = self:min_length(field)
                 if not success then
-                   -- print(field, MIN_LENGTH, success)
                     table.insert(fails["min_length"], field) 
                 end
             elseif validation_type == "max_length" then
@@ -84,6 +87,7 @@ function validator:min_length(field, min_length)
     if(string.len(field) < MIN_LENGTH) then
         return false
     end
+    return true
 end
 
 function validator:max_length(field, max_length)
@@ -111,7 +115,7 @@ function validator:is_phone_number(field)
     return ((not string.match(field, "%a")) and self.min_length(field, 8) and self.max_length(field, 20))
 end 
 
-local function check_pattern(field, pattern)
+local function check_date_pattern(field, pattern)
     local year, month, day = string.match(field, pattern)    
     if year and month and day then
         if string.sub(year, 1, 1) == "0" then
@@ -142,18 +146,22 @@ end
 
 function validator:is_date(field)
     local pattern = "(%d?%d?%d?%d)/(%d?%d)/(%d?%d)"
-    if check_pattern(field, pattern) then
+    if check_date_pattern(field, pattern) then
         return true
     end
     local pattern = "(%d?%d?%d?%d)-(%d?%d)-(%d?%d)"
-    if check_pattern(field, pattern) then
+    if check_date_pattern(field, pattern) then
         return true
     end
     local pattern = "(%d?%d?%d?%d).(%d?%d).(%d?%d)"
-    if check_pattern(field, pattern) then
+    if check_date_pattern(field, pattern) then
         return true
     end
     return false
+end
+
+function validator:is_int(field)
+    return (field):match("^%-?%d+$")
 end
 
 return validator

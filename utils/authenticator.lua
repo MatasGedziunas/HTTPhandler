@@ -2,9 +2,9 @@ local jwt = require "luajwt"
 local auth = {}
 local KEY = "sample"
 
-function auth:encode()   
+function auth:encode(user_id)   
     local payload = {
-        iss = "12345678",
+        iss = user_id,
         nbf = os.time(),
         exp = os.time() + 3600,
     }

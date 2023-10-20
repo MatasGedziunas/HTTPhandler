@@ -12,6 +12,7 @@ local function send_response(response)
     else
         uhttpd.send(cjson.encode(response.data))
     end
+    uhttpd.send("\r\n")
 end
 
 -- Main body required by uhhtpd-lua plugin
@@ -32,8 +33,6 @@ function handle_request(env)
 
     -- Injected uhttpd method
     local endpoint = require("endpoint")
-    endpoint.request_body = io.stdin:read("*all")
-    endpoint.content = parser:parse_json(endpoint.request_body)
     endpoint.send = send_response
     endpoint.env = env
     

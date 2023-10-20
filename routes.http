@@ -20,3 +20,32 @@ GET http://localhost/api/file/hello.txt
 }
 ###
 GET http://localhost/api/fiadsle/dasdload?=
+
+###
+GET http://localhost/api/user/show/1
+
+###
+POST http://localhost/api/user/create
+Content-Type: multipart/form-data; boundary=---------------------------275960504307967009023195
+
+-----------------------------275960504307967009023195
+Content-Disposition: form-data; name="username"
+
+aaa
+-----------------------------275960504307967009023195
+Content-Disposition: form-data; name="password"
+
+aaaaa
+-----------------------------275960504307967009023195--
+
+###
+POST http://localhost/api/user/delete/1
+
+###
+POST http://localhost/api/user/
+Content-Type: application/json
+
+{ 
+    "username" : "aaaaaaaaaaa",
+    "password" : "Pasaaaaaas"
+}

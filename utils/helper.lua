@@ -16,7 +16,6 @@ function split_string(inputstr, sep, init)
 end
 
 function check_path(request_method, parsed_url, desired_request_method, desired_url)
-    -- print(string.sub(parsed_url, 1, string.len(desired_url)), desired_url, "what")
     if parsed_url and request_method == desired_request_method and string.sub(parsed_url, 1, string.len(desired_url)) == desired_url then
         return true
     end
@@ -25,14 +24,30 @@ end
 
 function table_concat(table) 
     local str = ""
-    for i, elem in ipairs(table) do
+    local i = 1
+    for key, elem in ipairs(table) do
         if i == 1 then
             str = elem
+            i = 2
         else
             str = str .. ", " .. elem
         end              
     end
     return str
+end
+
+function construct_error_message(fails) 
+    local err = "Invalid data given (failed validations):<br>"
+        for type_of_fail, fields in pairs(fails) do
+            if #fields ~= 0 then
+                err = err .. type_of_fail .. ": "
+                for _, field in ipairs(fields) do
+                    err = err .. field .. ", "
+                end
+                err = err .. "<br>"
+            end 
+        end
+    return err
 end
 
 function set_response(status_code, content_type, data, response)
@@ -43,10 +58,10 @@ function set_response(status_code, content_type, data, response)
 end
 
 function is_two_dimensional_table_empty(table)
-    for _, subtable in ipairs(table) do
-        if next(subtable) ~= nil then
-            return false  -- Subtable is not empty
+    for key, subtable in pairs(table) do
+        if #subtable ~= 0 then
+            return false
         end
     end
-    return true  -- All subtables are empty
+    return true
 end
