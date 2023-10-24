@@ -25,6 +25,9 @@ GET http://localhost/api/fiadsle/dasdload?=
 GET http://localhost/api/user/show/1
 
 ###
+GET http://localhost/api/user/index
+
+###
 POST http://localhost/api/user/create
 Content-Type: multipart/form-data; boundary=---------------------------275960504307967009023195
 
@@ -46,6 +49,6 @@ POST http://localhost/api/user/
 Content-Type: application/json
 
 { 
-    "username" : "aaaaaaaaaaa",
+    "username" : "aaa",
     "password" : "Pasaaaaaas"
 }

@@ -22,6 +22,22 @@ function parser:parse_request_url(url)
     end
 end
 
+function parser:parse_model(fields, data_body)
+    local table = {}
+
+    for _, instance in ipairs(data_body) do
+        local user = {}
+        print(fields)
+        for _, field in ipairs(fields) do
+            print(field)
+            user[field] = instance[field]
+        end
+        table.insert(table, user)
+    end
+    return table
+end
+
+
 -- RETURNS A TABLE WITH THE PARSED PARTS
 function parser:parse_url_query(parsed_url)
     local data = {}

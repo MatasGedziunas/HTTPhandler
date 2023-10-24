@@ -17,19 +17,19 @@ end
 
 -- Main body required by uhhtpd-lua plugin
 function handle_request(env)
-    uhttpd.send("Status: 200\r\n")
-    uhttpd.send("Content-Type: text/html\r\n\r\n")
-    for k, v in pairs(env) do
-        if type(v) == "table" then
-            uhttpd.send("Table. Key -> " .. k .. "<br><br>")
-            for key, value in pairs(v) do
-                uhttpd.send(key .. " " .. value .. "<br><br>\r\n")
-            end
-        else
-            uhttpd.send(k .. " " .. v .. "<br><br>\r\n")
-        end
-    end
-    uhttpd.send("------------------------\n")
+    -- uhttpd.send("Status: 200\r\n")
+    -- uhttpd.send("Content-Type: text/html\r\n\r\n")
+    -- for k, v in pairs(env) do
+    --     if type(v) == "table" then
+    --         uhttpd.send("Table. Key -> " .. k .. "<br><br>")
+    --         for key, value in pairs(v) do
+    --             uhttpd.send(key .. " " .. value .. "<br><br>\r\n")
+    --         end
+    --     else
+    --         uhttpd.send(k .. " " .. v .. "<br><br>\r\n")
+    --     end
+    -- end
+    -- uhttpd.send("------------------------\n")
 
     -- Injected uhttpd method
     local endpoint = require("endpoint")

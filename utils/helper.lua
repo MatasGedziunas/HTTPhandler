@@ -51,6 +51,9 @@ function construct_error_message(fails)
 end
 
 function set_response(status_code, content_type, data, response)
+    if not response then
+        response = {}
+    end
     response.status_code = status_code
     response.content_type = content_type
     response.data = data
@@ -65,3 +68,13 @@ function is_two_dimensional_table_empty(table)
     end
     return true
 end
+
+function table_contains(table, value)
+    return table[value] ~= nil
+end
+
+function print_table(table)
+    for key, val in pairs(table) do
+        print(key .. " : " .. val)
+    end
+end 

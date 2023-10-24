@@ -4,13 +4,13 @@ local user_controller = require("controllers.user_controller")
 local routes = {
     {
         method = "GET",
-        path = "user/show/",
+        path = "user/{id?}",
         handler = user_controller.show,
         data = "parameter"
     },
     {
         method = "GET",
-        path = "user/index",
+        path = "user",
         handler = user_controller.index,
         data = "",
     },
