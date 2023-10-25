@@ -3,6 +3,7 @@ local content_type = require("utils.content_type")
 local status_code = require("utils.status_code")
 
 local response = {
+    status_code = status_code.ACCEPTED,
     content_type = content_type.JSON,
     headers = {}
     } 

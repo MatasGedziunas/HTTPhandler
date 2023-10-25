@@ -80,4 +80,12 @@ function print_table(table)
     end
 end 
 
+function call_function_from_controller(controller_name, method_name)
+    local controller_path = "/www/cgi-bin/controllers/" .. controller_name .. ".lua"
+    local user_controller = loadfile(controller_path)()
+    if user_controller[method_name] and type(user_controller[method_name]) == "function" then
+        
+    end
+end
+
 -- print(check_path("GET", "user/show/1/details", "GET", "user/show/{id}"))
