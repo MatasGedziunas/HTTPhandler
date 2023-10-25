@@ -16,7 +16,8 @@ function split_string(inputstr, sep, init)
 end
 
 function check_path(request_method, parsed_url, desired_request_method, desired_url)
-    if parsed_url and request_method == desired_request_method and string.sub(parsed_url, 1, string.len(desired_url)) == desired_url then
+    local parsed_path = parser:replace_pathParam_with_pattern(desired_url)
+    if parsed_url and request_method == desired_request_method and string.match(parsed_url, parsed_path) then
         return true
     end
     return false
@@ -25,7 +26,7 @@ end
 function table_concat(table) 
     local str = ""
     local i = 1
-    for key, elem in ipairs(table) do
+    for key, elem in pairs(table) do
         if i == 1 then
             str = elem
             i = 2
@@ -78,3 +79,5 @@ function print_table(table)
         print(key .. " : " .. val)
     end
 end 
+
+-- print(check_path("GET", "user/show/1/details", "GET", "user/show/{id}"))

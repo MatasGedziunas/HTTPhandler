@@ -13,9 +13,12 @@ local REQUIRED_FIELDS = {"username", "password"}
 
 function user:create(response, request)
     local data = request.body
+    --print(table_concat(data))
+    -- print(data)
     local missing_fields = validations:has_fields(data, REQUIRED_FIELDS) 
     if not (#missing_fields == 0) then
-        response = set_response(status_code.BAD_REQUEST, content_type.HTML, "Missing fields: " .. table_concat(missing_fields), response)
+        response:set_status_code(status_code.BAD_REQUEST)
+        :set_data("Missing fields: " .. table_concat(missing_fields))
         return response
     end
     local fields = {data.username, data.password}
@@ -28,10 +31,12 @@ function user:create(response, request)
             time_modified = os.time()
         })
         user:save()
-        response = set_response(status_code.CREATED, content_type.HTML, "Created User " .. user.username, response)
+        response:set_status_code(status_code.CREATED)
+        :set_data("Created User " .. user.username)
     else
         local err = construct_error_message(fails)
-        response = set_response(status_code.BAD_REQUEST, content_type.HTML, err, response)
+        response:set_status_code(status_code.BAD_REQUEST)
+            :set_data(err)
     end
     return response
 end
@@ -51,8 +56,11 @@ function user:show(response, request)
     -- local search = request.query('q')
     -- local content_type = request.header('content-type')
     local id = request.param
+    if not id then
+        id = 1
+    end
     if validations:is_int(id) then
-        return set_response(status_code.ACCEPTED, content_type.JSON, "A USER WITH ID " .. id, response)
+        return response:set_status_code(status_code.ACCEPTED):set_content_type(content_type.JSON):set_data("A USER WITH ID " .. id)      
     else
         return responses:invalid_parameter_data_type(response, "int")
     end   

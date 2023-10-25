@@ -16,7 +16,7 @@ end
 function parser:parse_request_url(url)
     local path = string.match(url, "/api/(.*)")
     if path then
-        return path
+        return "/"..path
     else
         return nil
     end
@@ -38,6 +38,17 @@ function parser:parse_model(fields, data_body)
 end
 
 
+function parser:replace_pathParam_with_pattern(path)
+    local pattern = string.gsub(path, "{(.+)}", function(param)
+        if param:sub(-1) == "?" then
+            param = param:sub(1, -2) -- Remove the trailing "?"
+            return "([^/]-)"
+        else
+            return "([^/]+)"
+        end
+    end)
+    return pattern
+end
 -- RETURNS A TABLE WITH THE PARSED PARTS
 function parser:parse_url_query(parsed_url)
     local data = {}
@@ -55,6 +66,7 @@ function parser:get_request_method(env)
 end
 
 function parser:parse_json(json)
+    
     if json and string.len(json) > 1 then
         local success, result = pcall(cjson.decode, json)
         if success then
@@ -96,7 +108,6 @@ function parser:parse_request_data(endpoint)
     local data = io.stdin:read("*all")
     local content_type = endpoint.env.headers["content-type"]
     if content_type == content_types.JSON then
-        print(table_concat(parser:parse_json(data)))
         return parser:parse_json(data)
     elseif content_type and string.match(content_type, "multipart/form%-data") then
         return parser:parse_formdata(data)

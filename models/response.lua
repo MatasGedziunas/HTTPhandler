@@ -1,0 +1,30 @@
+package.path = package.path .. ";/www/cgi-bin/?.lua;/www/?.lua"
+local content_type = require("utils.content_type")
+local status_code = require("utils.status_code")
+
+local response = {
+    content_type = content_type.JSON,
+    headers = {}
+    } 
+
+function response:set_status_code(code)
+    self["status_code"] = code
+    return self
+end
+
+function response:set_content_type(type)
+    self["content-type"] = type
+    return self
+end
+
+function response:set_data(data)
+    self["data"] = data
+    return self
+end 
+
+function response:add_header(key, val)
+    self.headers[key] = val
+    return self
+end
+
+return response

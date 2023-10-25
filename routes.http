@@ -22,10 +22,10 @@ GET http://localhost/api/file/hello.txt
 GET http://localhost/api/fiadsle/dasdload?=
 
 ###
-GET http://localhost/api/user/show/1
+GET http://localhost/api/user/show
 
 ###
-GET http://localhost/api/user/index
+GET http://localhost/api/user/index/
 
 ###
 POST http://localhost/api/user/create
@@ -52,3 +52,6 @@ Content-Type: application/json
     "username" : "aaa",
     "password" : "Pasaaaaaas"
 }
+
+###
+OPTIONS http://localhost/api/user/delete/1

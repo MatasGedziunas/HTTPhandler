@@ -2,36 +2,44 @@ package.path = package.path .. ";/www/cgi-bin/?.lua;/www/?.lua"
 local user_controller = require("controllers.user_controller")
 
 local routes = {
+    -- GET
     {
         method = "GET",
-        path = "user/{id?}",
+        path = "/user/show/{id?}",
         handler = user_controller.show,
-        data = "parameter"
     },
     {
         method = "GET",
-        path = "user",
+        path = "/user/index",
         handler = user_controller.index,
-        data = "",
     },
     {
+        method = "GET",
+        path = "/user/{id}",
+        handler = user_controller.show,
+    },
+    {
+        method = "GET",
+        path = "/user/",
+        handler = user_controller.index,
+    },
+    -- POST
+    {
         method = "POST",
-        path = "user/create",
+        path = "/user/create",
         handler = user_controller.create,
-        data = "body",
     },
     {
         method = "POST",
-        path = "user/delete",
+        path = "/user/delete",
         handler = user_controller.delete,
-        data = "parameter",
+        
     },
     {
         method = "POST",
-        path = "user/",
+        path = "/user/",
         handler = user_controller.create,
-        data = "body",
-    }
+    },
 }
 
 return routes

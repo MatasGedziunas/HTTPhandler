@@ -1,9 +1,13 @@
+package.path = package.path .. ";/www/cgi-bin/?.lua;/www/?.lua"
+local content_type = require("utils.content_type")
 local validator = {}
 local MIN_LENGTH = 6
 local MAX_LENGTH = 20
 local ALL_VALIDATIONS = {"min_length", "max_length", "no_numbers", "is_email", "is_phone_number"}
+local VALID_CONTENT_TYPES = {content_type.FORM_DATA, content_type.FORM_URLENCODED, content_type.JSON}
+local VALID_REQUEST_METHODS = {"GET", "POST", "PUT", "PATCH", "DELETE"}
 
-function validator:validateHeaders(headers)
+function validator:requiredHeaders(headers)
     local requiredHeaders = {"host", "user-agent"} --, "content-type"}
     local missingHeaders = {}
     for _, header in pairs(requiredHeaders) do
@@ -12,6 +16,17 @@ function validator:validateHeaders(headers)
         end
     end
     return missingHeaders
+end
+
+function validator:validateHeaders(headers)
+    local failed_validations = {}
+    if not table_contains(VALID_CONTENT_TYPES, headers["content-type"]) then
+        table.insert(failed_validations, "Invalid content type")
+    end
+    if not table_contains(VALID_REQUEST_METHODS, headers.URL) then
+        table.insert(failed_validations, "Request method not supported")
+    end
+    return failed_validations
 end
 
 function validator:validate_content(data, expected_content_type)

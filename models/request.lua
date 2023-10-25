@@ -3,12 +3,12 @@ local parser = require("utils.parser")
 local request = {}
 
 function request:add_body(body)
-    self.body_table = body
+    self.body = body
     return self
 end
 
 function request:add_query(query)
-    self.query_table = query
+    self.query = query
     return self
 end
 
