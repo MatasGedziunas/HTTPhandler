@@ -7,9 +7,9 @@ require("utils.helper")
 local function send_response(response)
     uhttpd.send("Status:" .. response.status_code.code .. "\r\n")
     uhttpd.send("Content-Type:" .. response.content_type .. "\r\n\r\n")
-    for key, val in pairs(response.headers) do
-        uhttpd.send(key..":" .. val .. "\r\n")
-    end
+    -- for key, val in pairs(response.headers) do
+    --     uhttpd.send(key..":" .. val .. "\r\n")
+    -- end
     if(not response.error_message == nil) then
         uhttpd.send(response.error_message)
     else

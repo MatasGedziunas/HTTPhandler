@@ -55,6 +55,7 @@ function user:show(response, request)
     -- local name = request.option('name')
     -- local search = request.query('q')
     -- local content_type = request.header('content-type')
+    print(response)
     local id = request.param
     if not id then
         id = 1
