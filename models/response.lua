@@ -3,9 +3,13 @@ local content_type = require("utils.content_type")
 local status_code = require("utils.status_code")
 
 local response = {
+    status_code = status_code.ACCEPTED,
     content_type = content_type.JSON,
-    headers = {}
+    headers = {},
+    data = {},
     } 
+
+
 
 function response:set_status_code(code)
     self["status_code"] = code
@@ -17,8 +21,13 @@ function response:set_content_type(type)
     return self
 end
 
-function response:set_data(data)
-    self["data"] = data
+function response:set_sucess(data)
+    self.data.sucess = data
+    return self
+end 
+
+function response:set_error(data)
+    self.data.error = data
     return self
 end 
 

@@ -19,16 +19,22 @@ function router:route(endpoint)
             --     endpoint.send(response)
             --     return
             -- end
+    local check_url_fail = 0
     for i, route in ipairs(routes) do
-        if check_path(request:get_method(), request:parsed_url(), route.method, route.path) then
+        local check_method, check_url = check_url_and_method(request:get_method(), request:parsed_url(), route.method, route.path)
+        if check_url and check_method then
             print(request:get_method(), route.path)
             endpoint.send(route:handler(response, request))
             found = 1
             break
+        elseif check_url then
+            check_url_fail = 1
         end
-        
     end
-    if found ~= 1 then
+
+    if check_url_fail == 1 and found ~= 1 then
+        endpoint.send(response:set_error("Url exists, however request method not supported"))
+    elseif found ~= 1 then
         endpoint.send(response:set_status_code(status_code.NOT_FOUND)
                 :set_data("Route not found"))
     end

@@ -15,12 +15,17 @@ function split_string(inputstr, sep, init)
     return t
 end
 
-function check_path(request_method, parsed_url, desired_request_method, desired_url)
+function check_url_and_method(request_method, parsed_url, desired_request_method, desired_url)
     local parsed_path = parser:replace_pathParam_with_pattern(desired_url)
-    if parsed_url and request_method == desired_request_method and string.match(parsed_url, parsed_path) then
-        return true
+    if parsed_url and string.match(parsed_url, parsed_path) then
+        if request_method == desired_request_method then
+            return true, true
+        else
+            return false, true
+        end
+        
     end
-    return false
+    return false, false
 end
 
 function table_concat(table) 
