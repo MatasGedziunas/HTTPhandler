@@ -68,7 +68,7 @@ function user:show(response, request)
 end
 
 function user:delete(response, request)  
-    print("In function: " .. response.content_type)
+    endpoint.send(response.content_type)
     local id = request.param
         if validations:is_int(id) then
             return set_response(status_code.ACCEPTED, content_type.JSON, "A USER WITH ID " .. id .. " has been deleted", response)
