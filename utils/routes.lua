@@ -1,6 +1,3 @@
-package.path = package.path .. ";/www/cgi-bin/?.lua;/www/?.lua"
-local user_controller = require("controllers.user_controller")
-
 local routes = {
     -- GET
     {
@@ -33,7 +30,6 @@ local routes = {
         method = "POST",
         path = "/user/delete/{id}",
         handler = "user_controller.delete",
-        
     },
     {
         method = "POST",

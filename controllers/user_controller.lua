@@ -13,8 +13,6 @@ local REQUIRED_FIELDS = {"username", "password"}
 
 function user:create(response, request)
     local data = request.body
-    --print(table_concat(data))
-    -- print(data)
     local missing_fields = validations:has_fields(data, REQUIRED_FIELDS) 
     if not (#missing_fields == 0) then
         response:set_status_code(status_code.BAD_REQUEST)

@@ -86,7 +86,7 @@ function Query(own_table, data)
             for _, table_column in pairs(self.own_table.__colnames) do
                 colname = table_column.name
 
-                if colname ~= ID then
+
 
                     -- If value exist correct value
                     if self[colname] ~= nil then
@@ -122,7 +122,7 @@ function Query(own_table, data)
                     insert = insert .. colname
 
                     counter = counter + 1
-                end
+                
             end
 
             insert = insert .. ") \n\t    VALUES (" .. values .. ")"

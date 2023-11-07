@@ -28,41 +28,31 @@ Table = {
 -- @table_instance.__foreign_keys {table} list of foreign key
 --                                        column instances
 -------------------------------------------
+
+local function create_config_file(file_name)
+    local file_path = "etc/config/" .. file_name .. ".config"
+    print(file_path)
+    local file, err = io.open(file_path, "w") 
+    if not file then
+        -- Handle the error, for example, print an error message
+        BACKTRACE("Error opening file: " .. err)
+    else
+        -- You can write content to the file here
+        -- Example: file:write("This is the content of the file")
+
+        -- Close the file when you're done
+        file:close()
+        BACKTRACE("File created: " .. file_path)
+    end
+end
+
+
 function Table:create_table(table_instance)
     -- table information
     local tablename = table_instance.__tablename__
     local columns = table_instance.__colnames
-    local foreign_keys = table_instance.__foreign_keys
-
-    BACKTRACE(INFO, "Start create table: " .. tablename)
-
-    -- other variables
-    local create_query = "CREATE TABLE IF NOT EXISTS `" .. tablename .. "` \n("
-    local counter = 0
-    local column_query
-    local result
-
-    for _, coltype in pairs(columns) do
-        column_query = "\n     `" .. coltype.name .. "` " .. coltype:_create_type()
-
-        if counter ~= 0 then
-            column_query = "," .. column_query
-        end
-
-        create_query = create_query .. column_query
-        counter = counter + 1
-    end
-
-    for _, coltype in pairs(foreign_keys) do
-        create_query = create_query .. ",\n     FOREIGN KEY(`" ..
-                       coltype.name .. "`)" .. " REFERENCES `" ..
-                       coltype.settings.to.__tablename__ ..
-                       "`(`id`)"
-    end
-
-    create_query = create_query .. "\n)"
-
-    db:execute(create_query)
+    print(tablename)
+    create_config_file(tablename)
 end
 
 -- Create new table instance
