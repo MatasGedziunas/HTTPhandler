@@ -33,7 +33,7 @@ Content-Type: multipart/form-data; boundary=---------------------------275960504
 -----------------------------275960504307967009023195
 Content-Disposition: form-data; name="username"
 
-aaa
+aaaAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 -----------------------------275960504307967009023195
 Content-Disposition: form-data; name="password"
 
@@ -41,7 +41,7 @@ aaaaa
 -----------------------------275960504307967009023195--
 
 ###
-POST http://localhost/api/user/delete/1
+POST http://localhost/api/user/delete/
 
 ###
 POST http://localhost/api/user/

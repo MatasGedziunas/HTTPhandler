@@ -17,5 +17,4 @@ User = Table({
     password = fields.CharField({max_length = 50, unique = true}),
     time_modified = fields.DateTimeField({null = true})
 })
-print("Hello")
 

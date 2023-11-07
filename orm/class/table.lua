@@ -31,7 +31,6 @@ Table = {
 
 local function create_config_file(file_name)
     local file_path = "etc/config/" .. file_name .. ".config"
-    print(file_path)
     local file, err = io.open(file_path, "w") 
     if not file then
         -- Handle the error, for example, print an error message
@@ -51,7 +50,6 @@ function Table:create_table(table_instance)
     -- table information
     local tablename = table_instance.__tablename__
     local columns = table_instance.__colnames
-    print(tablename)
     create_config_file(tablename)
 end
 
