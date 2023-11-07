@@ -38,7 +38,7 @@ local routes = {
     {
         method = "POST",
         path = "/user/",
-        handler = user_controller.create,
+        handler = "user_controller.create",
     },
 }
 

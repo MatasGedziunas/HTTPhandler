@@ -29,7 +29,7 @@ function router:route(endpoint)
             local user_controller = loadfile(controller_path)()
             if user_controller[method] and type(user_controller[method]) == "function" then
                 print(response, request)
-                endpoint.send(user_controller[method](response, request))
+                endpoint.send(user_controller[method](0, response, request)) -- do not change 0 must be passed
             else
                 endpoint.send(responses:method_not_found())
             end 
