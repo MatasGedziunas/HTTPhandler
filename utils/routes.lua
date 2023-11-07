@@ -20,7 +20,7 @@ local routes = {
     },
     {
         method = "GET",
-        path = "/user/",
+        path = "/user/$",
         handler = "user_controller.index",
     },
     -- POST
@@ -31,13 +31,13 @@ local routes = {
     },
     {
         method = "POST",
-        path = "/user/delete",
+        path = "/user/delete/{id}",
         handler = "user_controller.delete",
         
     },
     {
         method = "POST",
-        path = "/user/",
+        path = "/user/$",
         handler = "user_controller.create",
     },
 }

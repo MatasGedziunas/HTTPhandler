@@ -41,9 +41,9 @@ function parser:replace_pathParam_with_pattern(path)
     local pattern = string.gsub(path, "{(.+)}", function(param)
         if param:sub(-1) == "?" then
             param = param:sub(1, -2) -- Remove the trailing "?"
-            return "([^/]-)"
-        else
-            return "([^/]+)"
+            return "([^/]-)$"
+        else 
+            return "([^/]+)$"
         end
     end)
     return pattern

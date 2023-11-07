@@ -176,7 +176,7 @@ function validator:is_date(field)
 end
 
 function validator:is_int(field)
-    return (field):match("^%-?%d+$")
+    return (tostring(field)):match("^%-?%d+$")
 end
 
 return validator

@@ -10,8 +10,8 @@ local function send_response(response)
     -- for key, val in pairs(response.headers) do
     --     uhttpd.send(key..":" .. val .. "\r\n")
     -- end
-    if(not response.error_message == nil) then
-        uhttpd.send(response.error_message)
+    if(response.error_message ~= nil) then
+        uhttpd.send(cjson.encode(response.error_message))
     else
         uhttpd.send(cjson.encode(response.data))
     end

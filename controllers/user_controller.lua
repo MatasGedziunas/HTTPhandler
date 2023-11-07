@@ -18,7 +18,7 @@ function user:create(response, request)
     local missing_fields = validations:has_fields(data, REQUIRED_FIELDS) 
     if not (#missing_fields == 0) then
         response:set_status_code(status_code.BAD_REQUEST)
-        :set_error("Missing fields: " .. table_concat(missing_fields))
+        :set_error(missing_fields)
         return response
     end
     local fields = {data.username, data.password}
@@ -34,9 +34,9 @@ function user:create(response, request)
         response:set_status_code(status_code.CREATED)
         :set_sucess("Created User " .. user.username)
     else
-        local err = construct_error_message(fails)
+        -- local err = construct_error_message(fails)
         response:set_status_code(status_code.BAD_REQUEST)
-            :set_sucess(err)
+            :set_error(construct_error(fails))
     end
     return response
 end
@@ -70,11 +70,14 @@ end
 
 function user:delete(response, request)  
     local id = request.param
-        if validations:is_int(id) then
-            return set_response(status_code.ACCEPTED, content_type.JSON, "A USER WITH ID " .. id .. " has been deleted", response)
-        else
-            return responses:invalid_parameter_data_type("int")
-        end 
+    if not id then
+        return responses:parameter_not_found()
+    end
+    if validations:is_int(id) then
+        return response:set_status_code(status_code.ACCEPTED):set_content_type(content_type.JSON):set_sucess("A USER WITH ID " .. id .. " HAS BEEN DELETED")      
+    else
+        return responses:invalid_parameter_data_type("int")
+    end 
 end 
 
 function user:login(response, request)

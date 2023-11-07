@@ -17,7 +17,9 @@ end
 
 function check_method_and_url(request_method, parsed_url, desired_request_method, desired_url)
     local parsed_path = parser:replace_pathParam_with_pattern(desired_url)
+    
     if parsed_url and string.match(parsed_url, parsed_path) then
+        
         if request_method == desired_request_method then
             return true, true
         else
@@ -42,19 +44,19 @@ function table_concat(table)
     return str
 end
 
-function construct_error_message(fails) 
-    local err = "Invalid data given (failed validations):<br>"
-        for type_of_fail, fields in pairs(fails) do
-            if #fields ~= 0 then
-                err = err .. type_of_fail .. ": "
-                for _, field in ipairs(fields) do
-                    err = err .. field .. ", "
-                end
-                err = err .. "<br>"
-            end 
+function construct_error(fails)
+    local err = {}
+    err.failed_validations = {}
+
+    for type_of_fail, fields in pairs(fails) do
+        if #fields ~= 0 then
+            err.failed_validations[type_of_fail] = fields
         end
+    end
+
     return err
 end
+
 
 function set_response(status_code, content_type, data, response)
     if not response then
