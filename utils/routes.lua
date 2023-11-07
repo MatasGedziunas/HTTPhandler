@@ -6,39 +6,39 @@ local routes = {
     {
         method = "GET",
         path = "/user/show/{id?}",
-        handler = user_controller.show,
+        handler = "user_controller.show",
     },
     {
         method = "GET",
         path = "/user/index",
-        handler = user_controller.index,
+        handler = "user_controller.index",
     },
     {
         method = "GET",
         path = "/user/{id}",
-        handler = user_controller.show,
+        handler = "user_controller.show",
     },
     {
         method = "GET",
-        path = "/user/$",
-        handler = user_controller.index,
+        path = "/user/",
+        handler = "user_controller.index",
     },
     -- POST
     {
         method = "POST",
         path = "/user/create",
-        handler = user_controller.create,
+        handler = "user_controller.create",
     },
     {
         method = "POST",
         path = "/user/delete",
-        handler = user_controller.delete,
+        handler = "user_controller.delete",
         
     },
     {
         method = "POST",
-        path = "/user/$",
-        handler = user_controller.create,
+        path = "/user/",
+        handler = "user_controller.create",
     },
 }
 

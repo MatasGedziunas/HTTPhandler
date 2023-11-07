@@ -1,7 +1,6 @@
 package.path = package.path .. ";/www/cgi-bin/?.lua;/www/?.lua"
 local cjson = require("cjson")
 local content_types = require("utils.content_type")
-local Multipart = require("multipart")
 local parser = {}
 
 function parser:parse_request_parametres(url)

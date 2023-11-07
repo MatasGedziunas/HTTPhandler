@@ -10,6 +10,7 @@ DB = {
 
 local Table = require("orm.model")
 local fields = require("orm.tools.fields")
+
 User = Table({
     __tablename__ = "user",
     username = fields.CharField({max_length = 100, unique = true}),
