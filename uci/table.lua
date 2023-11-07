@@ -37,4 +37,17 @@ function Table:create_table(table_instance)
     create_config_file(tablename)
 end
 
+function Table.new(self, args)
+    print(args.__columns__.username)
+    self.__tablename__ = args.__tablename__
+    local colnames = {}
+    for colname, _type in pairs(args) do
+        if colname ~= self.__table__name then
+            
+        end
+    end
+end
+
+setmetatable(Table, {__call = Table.new})
+
 return Table
