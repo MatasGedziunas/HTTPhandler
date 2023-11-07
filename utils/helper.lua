@@ -15,7 +15,7 @@ function split_string(inputstr, sep, init)
     return t
 end
 
-function check_url_and_method(request_method, parsed_url, desired_request_method, desired_url)
+function check_method_and_url(request_method, parsed_url, desired_request_method, desired_url)
     local parsed_path = parser:replace_pathParam_with_pattern(desired_url)
     if parsed_url and string.match(parsed_url, parsed_path) then
         if request_method == desired_request_method then

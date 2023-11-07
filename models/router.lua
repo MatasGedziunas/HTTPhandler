@@ -14,24 +14,18 @@ local router = {}
 function router:route(endpoint)
     local found = 0
     local request = endpoint.request
-<<<<<<< HEAD
                 -- local success, response = middleware:handle_request(response, request)
             -- if not success then
             --     endpoint.send(response)
             --     return
             -- end
     local check_url_fail = 0
-    for i, route in ipairs(routes) do
-        local check_method, check_url = check_url_and_method(request:get_method(), request:parsed_url(), route.method, route.path)
-        if check_url and check_method then
-            print(request:get_method(), route.path)
-            endpoint.send(route:handler(response, request))
-=======
-     -- print(response, request)
+        
     for i, route in ipairs(routes) do
         local splited_handler_string = split_string(route.handler, ".")
         local controller, method = splited_handler_string[1], splited_handler_string[2]
-        if check_path(request:get_method(), request:parsed_url(), route.method, route.path) then
+        local check_method, check_url = check_method_and_url(request:get_method(), request:parsed_url(), route.method, route.path)
+        if check_method and check_url then
             local success, error_response = middleware:handle_request(response, request)
             if not success then
                 endpoint.send(error_response)
@@ -46,12 +40,11 @@ function router:route(endpoint)
             else
                 endpoint.send(responses:method_not_found())
             end 
->>>>>>> dynamic_loading
             found = 1
             break
         elseif check_url then
             check_url_fail = 1
-        end
+        end     
     end
 
     if check_url_fail == 1 and found ~= 1 then
