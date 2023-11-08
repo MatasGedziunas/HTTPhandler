@@ -38,6 +38,5 @@ function handle_request(env)
     local endpoint = require("endpoint")
     endpoint.send = send_response
     endpoint.env = env
-    
     endpoint:handle_request()
 end

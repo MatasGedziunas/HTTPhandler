@@ -8,13 +8,16 @@ DB = {
     type = "sqlite3",
 }
 
-local Table = require("orm.model")
-local fields = require("orm.tools.fields")
+local Table = require("uci.table")
+-- local field = ...
 
 User = Table({
     __tablename__ = "user",
-    username = fields.CharField({max_length = 100, unique = true}),
-    password = fields.CharField({max_length = 50, unique = true}),
-    time_modified = fields.DateTimeField({null = true})
+    __columns__ = {
+        username = "",
+        password = "",
+        time_modified = "",
+        info = {}
+    }
 })
 

@@ -78,7 +78,15 @@ function is_two_dimensional_table_empty(table)
 end
 
 function table_contains(table, value)
-    return table[value] ~= nil
+    if not table then
+        return false
+    end
+    for _, value in pairs(table) do
+        if value == value then
+          return true
+        end
+      end
+    return false
 end
 
 function print_table(table)

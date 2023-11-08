@@ -29,7 +29,6 @@ local function create_config_file(file_name)
     end
 end
 
-
 function Table:create_table(table_instance)
     -- table information
     local tablename = table_instance.__tablename__

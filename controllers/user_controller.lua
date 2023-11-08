@@ -22,19 +22,19 @@ function user:create(response, request)
     local fields = {data.username, data.password}
     local validation_fields = {DEFAULT_VALIDATIONS, DEFAULT_VALIDATIONS}
     local fails = validations:validate_env(fields, REQUIRED_FIELDS, validation_fields)
-    if is_two_dimensional_table_empty(fails) == 0 then
-        local user = User({
-            username = data.username, -- encrypt
-            password = data.password,
-            time_modified = os.time()
-        })
-        user:save()
+    if is_two_dimensional_table_empty(fails) then
+        -- local user = User({
+        --     username = data.username, -- encrypt
+        --     password = data.password,
+        --     time_modified = os.time()
+        -- })
+        -- user:save()
         response:set_status_code(status_code.CREATED)
-        :set_sucess("Created User " .. user.username)
+        :set_sucess("Created User " .. data.username)
     else
         -- local err = construct_error_message(fails)
         response:set_status_code(status_code.BAD_REQUEST)
-            :set_error(construct_error(fails))
+        :set_error(construct_error(fails))
     end
     return response
 end
@@ -46,7 +46,6 @@ function user:index(response, request)
     -- print("Second user name is: " .. users[1].username)
     -- print_table(parser:parse_model(user_model.fields, users))
     -- response:with_status(201):with_headers({}):data()
-    print(response, request)
     return set_response(status_code.ACCEPTED, content_type.JSON, "List of users")
 end
 
@@ -54,7 +53,6 @@ function user:show(response, request)
     -- local name = request.option('name')
     -- local search = request.query('q')
     -- local content_type = request.header('content-type')
-    print(response, request)
     local id = request.param
     if not id then
         id = 1

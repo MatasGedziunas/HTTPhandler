@@ -28,6 +28,7 @@ GET http://localhost/api/user/show/1
 POST http://localhost/api/user/index
 ###
 POST http://localhost/api/user/create
+rpc-key: 3b14e5eab0a2a471abbc035594c8127f
 Content-Type: multipart/form-data; boundary=---------------------------275960504307967009023195
 
 -----------------------------275960504307967009023195
@@ -46,11 +47,21 @@ POST http://localhost/api/user/delete/
 ###
 POST http://localhost/api/user/
 Content-Type: application/json
+rpc-key: 3b14e5eab0a2a471abbc035594c8127f
 
 { 
-    "username" : "aaa",
+    "username" : "aaapsps",
     "password" : "Pasaaaaaas"
 }
 
 ###
 OPTIONS http://localhost/api/user/delete/1
+
+###
+POST http://localhost/api/user/login
+Content-Type: application/json
+
+{
+    "username" : "admin",
+    "password" : "admin01"
+}

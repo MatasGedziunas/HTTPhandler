@@ -28,20 +28,20 @@ function request:add_method(method)
 end
 
 function request:option(option)
-    if self.body_table then
-        return self.body_table.option
+    if self.body then
+        return self.body[option]
     end
 end
 
 function request:query(option)
-    if self.query_table then
-        return self.query_table.option
+    if self.query then
+        return self.query[option]
     end
 end
 
 function request:header(option)
     if self.headers then
-        return self.headers.option
+        return self.headers[option]
     end
 end
 

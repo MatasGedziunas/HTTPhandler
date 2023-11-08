@@ -9,8 +9,6 @@ local response = {
     data = {},
     } 
 
-
-
 function response:set_status_code(code)
     self["status_code"] = code
     return self

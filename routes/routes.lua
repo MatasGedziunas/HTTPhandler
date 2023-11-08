@@ -25,16 +25,24 @@ local routes = {
         method = "POST",
         path = "/user/create",
         handler = "user_controller.create",
+        midleware = {"auth"}
     },
     {
         method = "POST",
         path = "/user/delete/{id}",
         handler = "user_controller.delete",
+        midleware = {"auth"}
+    },
+    {
+        method = "POST",
+        path = "/user/login",
+        handler = "authentication_controller.login",
     },
     {
         method = "POST",
         path = "/user/$",
         handler = "user_controller.create",
+        midleware = {"auth"}
     },
 }
 

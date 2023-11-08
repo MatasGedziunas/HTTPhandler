@@ -6,7 +6,7 @@ local content_type = require("utils.content_type")
 local status_code = require("utils.status_code")
 local validator = require("utils.validation")
 local user_controller = require("controllers.user_controller")
-local router = require("models.router")
+local router = require("routes.router")
 local request = require("models.request")
 
 function endpoint:handle_request()

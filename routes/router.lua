@@ -6,8 +6,8 @@ local status_code = require("utils.status_code")
 local validator = require("utils.validation")
 local user_controller = require("controllers.user_controller")
 local responses = require("utils.responses")
-local routes = require("utils.routes")
-local middleware = require("models.middleware")
+local routes = require("routes.routes")
+local middleware = require("middleware.middleware")
 local response = require("models.response")
 
 local router = {}
@@ -26,13 +26,12 @@ function router:route(endpoint)
         local controller, method = splited_handler_string[1], splited_handler_string[2]
         local check_method, check_url = check_method_and_url(request:get_method(), request:parsed_url(), route.method, route.path)
         if check_method and check_url then
-            local success, error_response = middleware:handle_request(response, request)
+            local success, error_response = middleware:handle_request(request, route.midleware)
             if not success then
                 endpoint.send(error_response)
                 return
             end
             local controller_path = "/www/cgi-bin/controllers/" .. controller .. ".lua"
-            --endpoint.send(response:set_data(controller_path))
             local user_controller = loadfile(controller_path)()
             if user_controller[method] and type(user_controller[method]) == "function" then
                 endpoint.send(user_controller[method](0, response, request)) -- do not change 0 must be passed
