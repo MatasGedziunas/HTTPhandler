@@ -1,11 +1,10 @@
 package.path = package.path .. ";/www/cgi-bin/?.lua;/www/?.lua"
 local content_type = require("utils.content_type")
 local status_code = require("utils.status_code")
-
 local responses = {}
+local response = require("models.response")
 
 function responses:parameter_not_found(param_name)
-    local response = {}
     response.status_code = status_code.BAD_REQUEST
     response.content_type = content_type.JSON
     response:set_error("Parameter "  .. param_name ..  " not found")
@@ -13,7 +12,6 @@ function responses:parameter_not_found(param_name)
 end
 
 function responses:invalid_parameter_data_type(data_type)
-    local response = {}
     response.status_code = status_code.BAD_REQUEST
     response.content_type = content_type.JSON
     response:set_error("Parameter id is not of type " .. data_type)
@@ -21,7 +19,6 @@ function responses:invalid_parameter_data_type(data_type)
 end
 
 function responses:method_not_found()
-    local response = {}
     response.status_code = status_code.INTERNAL_SERVER_ERROR
     response.content_type = content_type.JSON
     response:set_error("Controller method not implemented yet")

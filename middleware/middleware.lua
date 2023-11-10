@@ -8,10 +8,11 @@ local middleware = {}
 
 function middleware:handle_request(request, route_middleware) 
     if(table_contains(route_middleware, "auth")) then
-        if not request:header("rpc-key") then
+        local auth_key = request:header("authorization")
+        if not auth_key then
             return false, response:set_status_code(status_codes.BAD_REQUEST):set_error("Missing authentication key")
         end 
-        if(not auth_checker:check_auth(request:header("rpc-key"))) then
+        if(not auth_checker:check_auth(auth_key)) then
             return false, response:set_status_code(status_codes.BAD_REQUEST):set_error("Failed authentication")
         end
     end

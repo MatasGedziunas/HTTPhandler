@@ -13,11 +13,8 @@ local Table = require("uci.table")
 
 User = Table({
     __tablename__ = "user",
-    __columns__ = {
-        username = "",
-        password = "",
-        time_modified = "",
-        info = {}
-    }
+    username = "",
+    password = "",
 })
+
 

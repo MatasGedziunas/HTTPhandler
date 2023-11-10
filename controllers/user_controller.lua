@@ -23,11 +23,11 @@ function user:create(response, request)
     local validation_fields = {DEFAULT_VALIDATIONS, DEFAULT_VALIDATIONS}
     local fails = validations:validate_env(fields, REQUIRED_FIELDS, validation_fields)
     if is_two_dimensional_table_empty(fails) then
-        -- local user = User({
-        --     username = data.username, -- encrypt
-        --     password = data.password,
-        --     time_modified = os.time()
-        -- })
+        local user = User({
+            username = data.username, -- encrypt
+            password = data.password,
+            time_modified = os.time()
+        })
         -- user:save()
         response:set_status_code(status_code.CREATED)
         :set_sucess("Created User " .. data.username)

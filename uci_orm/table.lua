@@ -18,35 +18,44 @@ local function create_config_file(file_name)
     local file, err = io.open(file_path, "w") 
     if not file then
         -- Handle the error, for example, print an error message
-        BACKTRACE("Error opening file: " .. err)
+        print("Error opening file: " .. err)
     else
         -- You can write content to the file here
         -- Example: file:write("This is the content of the file")
 
         -- Close the file when you're done
         file:close()
-        BACKTRACE("File created: " .. file_path)
     end
 end
 
-function Table:create_table(table_instance)
+function Table.create_table(self, args)
     -- table information
-    local tablename = table_instance.__tablename__
-    local columns = table_instance.__colnames
-    create_config_file(tablename)
-end
+    local cols = {}
 
-function Table.new(self, args)
-    print(args.__columns__.username)
-    self.__tablename__ = args.__tablename__
-    local colnames = {}
-    for colname, _type in pairs(args) do
-        if colname ~= self.__table__name then
-            
+    for key, val in pairs(args) do
+        if key ~= "__tablename__" then
+            cols[key] = val
         end
     end
+
+    local table_instance = {
+        __tablename__ = args.__tablename__,
+        cols = cols,
+        create = function(self, data)
+            return Query(self, data)
+        end,
+        __index = function(self, key)
+            if(key == "get") then
+                return Select(self)
+            end
+            print("Method not found")
+        end
+    }
+    setmetatable(table_instance, {__call = table_instance.create,
+                                __index = table_instance.__index})
+    return table_instance
 end
 
-setmetatable(Table, {__call = Table.new})
+setmetatable(Table, {__call = Table.create_table})
 
 return Table

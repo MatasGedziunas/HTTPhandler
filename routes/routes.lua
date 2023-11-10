@@ -40,6 +40,12 @@ local routes = {
     },
     {
         method = "POST",
+        path = "/user/logout",
+        handler = "authentication_controller.logout",
+        midleware = {"auth"}
+    },
+    {
+        method = "POST",
         path = "/user/$",
         handler = "user_controller.create",
         midleware = {"auth"}

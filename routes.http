@@ -28,7 +28,7 @@ GET http://localhost/api/user/show/1
 POST http://localhost/api/user/index
 ###
 POST http://localhost/api/user/create
-rpc-key: 3b14e5eab0a2a471abbc035594c8127f
+Authorization: 3b14e5eab0a2a471abbc035594c8127f
 Content-Type: multipart/form-data; boundary=---------------------------275960504307967009023195
 
 -----------------------------275960504307967009023195
@@ -43,11 +43,12 @@ aaaaa
 
 ###
 POST http://localhost/api/user/delete/
+Authorization: 4c716d38c84609e058bbd3455970df60
 
 ###
 POST http://localhost/api/user/
 Content-Type: application/json
-rpc-key: 3b14e5eab0a2a471abbc035594c8127f
+Authorization: 3b14e5eab0a2a471abbc035594c8127f
 
 { 
     "username" : "aaapsps",
@@ -65,3 +66,8 @@ Content-Type: application/json
     "username" : "admin",
     "password" : "admin01"
 }
+
+###
+POST http://localhost/api/user/logout
+Authorization: db3076b7b7a52b845f073df8366d4b43
+Content-Type: application/json
