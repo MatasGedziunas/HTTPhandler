@@ -30,15 +30,14 @@ function auth:login(response, request)
     return response
 end
 
-function auth:destroy(key)
+function auth:logout(response, request)
+    local key = request:header("authorization")
+    print(key)
     local destroy = conn:call("session", "destroy", {ubus_rpc_session = key})
-    if not destroy then
-        return status_codes.BAD_REQUEST.code
-    end
-    return destroy
+    -- if not destroy then
+    --     return response:set_status_code(status_codes.INTERNAL_SERVER_ERROR):set_error("Unable to log out")
+    -- end
+    return response:set_sucess("Logged out")
 end 
-
--- print(auth:login("admin", "admin01"))
--- print(auth:destroy("4a22a74f67656dfd96481ed44ee61b0c"))
 
 return auth

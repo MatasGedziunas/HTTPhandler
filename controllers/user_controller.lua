@@ -67,7 +67,7 @@ end
 function user:delete(response, request)  
     local id = request.param
     if not id then
-        return responses:parameter_not_found()
+        return responses:parameter_not_found("id")
     end
     if validations:is_int(id) then
         return response:set_status_code(status_code.ACCEPTED):set_content_type(content_type.JSON):set_sucess("A USER WITH ID " .. id .. " HAS BEEN DELETED")      
