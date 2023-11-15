@@ -22,10 +22,10 @@ GET http://localhost/api/file/hello.txt
 GET http://localhost/api/fiadsle/dasdload?=
 
 ###
-GET http://localhost/api/user/show/1
+GET http://localhost/api/user/show/Hellos
 
 ###
-POST http://localhost/api/user/index
+GET http://localhost/api/user/index
 ###
 POST http://localhost/api/user/create
 Authorization: 3b14e5eab0a2a471abbc035594c8127f
@@ -51,8 +51,8 @@ Content-Type: application/json
 Authorization: 3b14e5eab0a2a471abbc035594c8127f
 
 { 
-    "username" : "aaapsps",
-    "password" : "Pasaaaaaas"
+    "username" : "woohoo",
+    "password" : "Pasaas"
 }
 
 ###

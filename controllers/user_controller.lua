@@ -24,15 +24,13 @@ function user:create(response, request)
     local fails = validations:validate_env(fields, REQUIRED_FIELDS, validation_fields)
     if is_two_dimensional_table_empty(fails) then
         local user = User({
-            username = data.username, -- encrypt
+            username = data.username,
             password = data.password,
-            time_modified = os.time()
         })
-        -- user:save()
+        user:save()
         response:set_status_code(status_code.CREATED)
         :set_sucess("Created User " .. data.username)
     else
-        -- local err = construct_error_message(fails)
         response:set_status_code(status_code.BAD_REQUEST)
         :set_error(construct_error(fails))
     end
@@ -40,28 +38,15 @@ function user:create(response, request)
 end
 
 function user:index(response, request)
-    -- local users = User.get:all()
-    -- print("We get " .. users:count() .. " users")
-    -- -- We get 2 users
-    -- print("Second user name is: " .. users[1].username)
-    -- print_table(parser:parse_model(user_model.fields, users))
-    -- response:with_status(201):with_headers({}):data()
-    return set_response(status_code.ACCEPTED, content_type.JSON, "List of users")
+    return response:set_sucess(User.get:all())
 end
 
 function user:show(response, request)
-    -- local name = request.option('name')
-    -- local search = request.query('q')
-    -- local content_type = request.header('content-type')
     local id = request.param
     if not id then
-        id = 1
+        id = "something"
     end
-    if validations:is_int(id) then
-        return response:set_status_code(status_code.ACCEPTED):set_content_type(content_type.JSON):set_sucess("A USER WITH ID " .. id)      
-    else
-        return responses:invalid_parameter_data_type(response, "int")
-    end   
+    return response:set_status_code(status_code.ACCEPTED):set_content_type(content_type.JSON):set_sucess(User.get:where({username = id}):all())
 end
 
 function user:delete(response, request)  
@@ -69,11 +54,8 @@ function user:delete(response, request)
     if not id then
         return responses:parameter_not_found("id")
     end
-    if validations:is_int(id) then
-        return response:set_status_code(status_code.ACCEPTED):set_content_type(content_type.JSON):set_sucess("A USER WITH ID " .. id .. " HAS BEEN DELETED")      
-    else
-        return responses:invalid_parameter_data_type("int")
-    end 
+    User.get:where({username = id}):delete()
+    return response:set_status_code(status_code.ACCEPTED):set_content_type(content_type.JSON):set_sucess("A USER WITH ID " .. id .. " HAS BEEN DELETED")         
 end 
 
 function user:login(response, request)
