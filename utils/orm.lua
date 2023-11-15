@@ -19,15 +19,14 @@ User = Table({
     password = "",
 })
 
-local user_instance = User({
-    username = "Hello",
-    password = "Please"
-})
-user_instance:save()
+-- local user_instance = User({
+--     username = "Hello",
+--     password = "Please"
+-- })
+-- user_instance:save()
+local all_users = User.get:all()
+for key, val in pairs(all_users) do
+    print(key)
+end
 
-local config = "user"
-local section = x:add(config, "interface")
--- 
-x:set(config, section, "naujas", "pasw")
-x:save(config)
-x:commit(config)
+
