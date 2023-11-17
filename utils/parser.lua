@@ -15,6 +15,9 @@ end
 function parser:parse_request_url(url)
     local path = string.match(url, "/api/(.*)")
     if path then
+        if path:sub(-1) == "/" and #path > 1 then
+            path = path:sub(1, #path-1)
+        end        
         return "/"..path
     else
         return nil
@@ -26,9 +29,7 @@ function parser:parse_model(fields, data_body)
 
     for _, instance in ipairs(data_body) do
         local user = {}
-        print(fields)
         for _, field in ipairs(fields) do
-            print(field)
             user[field] = instance[field]
         end
         table.insert(table, user)

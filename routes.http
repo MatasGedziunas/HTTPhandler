@@ -26,6 +26,10 @@ GET http://localhost/api/user/show/Hellos
 
 ###
 GET http://localhost/api/user/index
+
+###
+GET http://localhost/api/
+
 ###
 POST http://localhost/api/user/create
 Authorization: 3b14e5eab0a2a471abbc035594c8127f
@@ -42,7 +46,7 @@ aaaaa
 -----------------------------275960504307967009023195--
 
 ###
-POST http://localhost/api/user/delete/
+POST http://localhost/api/user/delete/woohoo
 Authorization: 4c716d38c84609e058bbd3455970df60
 
 ###
