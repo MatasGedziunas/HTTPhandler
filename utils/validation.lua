@@ -8,7 +8,7 @@ local VALID_CONTENT_TYPES = {content_type.FORM_DATA, content_type.FORM_URLENCODE
 local VALID_REQUEST_METHODS = {"GET", "POST", "PUT", "PATCH", "DELETE"}
 
 function validator:requiredHeaders(headers)
-    local requiredHeaders = {"host", "user-agent"} --, "content-type"}
+    local requiredHeaders = {"host", "user-agent", "content-type"}
     local missingHeaders = {}
     for _, header in pairs(requiredHeaders) do
         if not headers[header] then
@@ -18,12 +18,13 @@ function validator:requiredHeaders(headers)
     return missingHeaders
 end
 
-function validator:validateHeaders(headers)
+function validator:validateHeaders(env)
+    local headers = env.headers
     local failed_validations = {}
     if not table_contains(VALID_CONTENT_TYPES, headers["content-type"]) then
         table.insert(failed_validations, "Invalid content type")
     end
-    if not table_contains(VALID_REQUEST_METHODS, headers.URL) then
+    if not table_contains(VALID_REQUEST_METHODS, env.REQUEST_METHOD) then
         table.insert(failed_validations, "Request method not supported")
     end
     return failed_validations

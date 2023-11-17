@@ -35,7 +35,7 @@ function handle_request(env)
     -- uhttpd.send("------------------------\n")
 
     -- Injected uhttpd method
-    local endpoint = require("endpoint")
+    local endpoint = require("www/cgi-bin/endpoint")
     endpoint.send = send_response
     endpoint.env = env
     endpoint:handle_request()

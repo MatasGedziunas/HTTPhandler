@@ -81,8 +81,8 @@ function table_contains(table, value)
     if not table then
         return false
     end
-    for _, value in pairs(table) do
-        if value == value then
+    for _, val in pairs(table) do
+        if val == value then
           return true
         end
       end
@@ -94,13 +94,3 @@ function print_table(table)
         print(key .. " : " .. val)
     end
 end 
-
-function call_function_from_controller(controller_name, method_name)
-    local controller_path = "/www/cgi-bin/controllers/" .. controller_name .. ".lua"
-    local user_controller = loadfile(controller_path)()
-    if user_controller[method_name] and type(user_controller[method_name]) == "function" then
-        
-    end
-end
-
--- print(check_path("GET", "user/show/1/details", "GET", "user/show/{id}"))

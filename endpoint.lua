@@ -8,18 +8,19 @@ local validator = require("utils.validation")
 local user_controller = require("controllers.user_controller")
 local router = require("routes.router")
 local request = require("models.request")
+local response = require("models.response")
 
 function endpoint:handle_request()
     local missingHeaders = validator:requiredHeaders(endpoint.env.headers)
     if #missingHeaders ~= 0 then        
-        self.send(set_response(status_code.BAD_REQUEST, content_type.HTML, "Missing Headers: " .. table_concat(missingHeaders)))
+        self.send(response:set_error("Missing headers: " .. table_concat(missingHeaders)):set_status_code(status_code.BAD_REQUEST))
         return
     end
-    -- local validationHeaders = validator:validateHeaders(endpoint.env.headers)
-    -- if #validationHeaders ~= 0 then
-    --     self.send(set_response(status_code.BAD_REQUEST, content_type.HTML, "Failed header validations: " .. table_concat(missingHeaders)))
-    --     return
-    -- end
+    local validationHeaders = validator:validateHeaders(endpoint.env)
+    if #validationHeaders ~= 0 then
+        self.send(response:set_error("Failed header validations: " .. table_concat(validationHeaders)):set_status_code(status_code.BAD_REQUEST))
+        return
+    end
     endpoint.request = request:add_body(parser:parse_request_data(self))
         :add_headers(endpoint.env.headers)
         :add_param(parser:parse_request_parametres(endpoint.env.headers.URL))

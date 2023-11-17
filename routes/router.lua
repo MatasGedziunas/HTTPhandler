@@ -31,6 +31,7 @@ function router:route(endpoint)
                 endpoint.send(error_response)
                 return
             end
+            
             local controller_path = "/www/cgi-bin/controllers/" .. controller .. ".lua"
             local user_controller = loadfile(controller_path)()
             if user_controller[method] and type(user_controller[method]) == "function" then

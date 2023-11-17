@@ -19,6 +19,7 @@ function auth:login(response, request)
     end
     local username = request:option("username")
     local password = request:option("password")
+    
     local login_info = conn:call("session", "login", {username = username, password = password})
     if not login_info then
         response:set_status_code(status_codes.BAD_REQUEST):set_error("Invalid login credentials")
@@ -32,7 +33,6 @@ end
 
 function auth:logout(response, request)
     local key = request:header("authorization")
-    print(key)
     local destroy = conn:call("session", "destroy", {ubus_rpc_session = key})
     -- if not destroy then
     --     return response:set_status_code(status_codes.INTERNAL_SERVER_ERROR):set_error("Unable to log out")

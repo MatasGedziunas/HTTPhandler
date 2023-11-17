@@ -23,12 +23,14 @@ GET http://localhost/api/fiadsle/dasdload?=
 
 ###
 GET http://localhost/api/user/show/Hellos
+Content-Type: application/json
 
 ###
 GET http://localhost/api/user/index
 
 ###
-GET http://localhost/api/
+GET http://localhost/api/user/create
+Content-Type: application/json
 
 ###
 POST http://localhost/api/user/create
@@ -47,16 +49,17 @@ aaaaa
 
 ###
 POST http://localhost/api/user/delete/woohoo
-Authorization: 4c716d38c84609e058bbd3455970df60
+Content-Type: multipart/form-data
+Authorization: e8662945f14038986e6c93aa71e0a5ed
 
 ###
 POST http://localhost/api/user/
 Content-Type: application/json
-Authorization: 3b14e5eab0a2a471abbc035594c8127f
+Authorization: 589e1c71c4584a210de128ee364694a1
 
 { 
-    "username" : "woohoo",
-    "password" : "Pasaas"
+    "username" : "admin20",
+    "password" : "admin01"
 }
 
 ###
@@ -73,5 +76,5 @@ Content-Type: application/json
 
 ###
 POST http://localhost/api/user/logout
-Authorization: db3076b7b7a52b845f073df8366d4b43
+Authorization: 5528662d11870068162564dddbe89c45
 Content-Type: application/json

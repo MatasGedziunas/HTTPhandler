@@ -12,6 +12,7 @@ local DEFAULT_VALIDATIONS = {"min_length", "max_length"}
 local REQUIRED_FIELDS = {"username", "password"}
 
 function user:create(response, request)
+    
     local data = request.body
     local missing_fields = validations:has_fields(data, REQUIRED_FIELDS) 
     if not (#missing_fields == 0) then
