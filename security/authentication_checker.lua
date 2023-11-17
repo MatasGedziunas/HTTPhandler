@@ -9,11 +9,16 @@ local status_codes = require("utils.status_code")
 local checker = {}
 
 function checker:check_auth(key)
-    local data = conn:call("session", "get", {ubus_rpc_session = key})
-    if not data then
-        return status_codes.BAD_REQUEST.code
+    local data = conn:call("session", "list", {ubus_rpc_session = key})
+    -- local s = ""
+    -- for k, v in pairs(data) do
+    --     s = k .. " "
+    -- end
+    -- print(s)
+    if data and data.ubus_rpc_session == key then
+        return true
     end
-    return true
+    return false
 end
 
 return checker
