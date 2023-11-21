@@ -12,8 +12,11 @@ function middleware:handle_request(request, route_middleware)
         if not auth_key then
             return false, response:set_status_code(status_codes.BAD_REQUEST):set_error("Missing authentication key")
         end 
-        if(not auth_checker:check_auth(auth_key)) then
+        local check_auth = auth_checker:check_auth(auth_key)
+        if(check_auth == false) then
             return false, response:set_status_code(status_codes.BAD_REQUEST):set_error("Failed authentication")
+        elseif check_auth ~= true then
+            return false, check_auth
         end
     end
     return true

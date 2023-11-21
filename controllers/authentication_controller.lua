@@ -1,15 +1,20 @@
 package.path = package.path .. ";/www/cgi-bin/?.lua;/www/?.lua"
 require("ubus")
 local conn = ubus.connect()
+Fail = 0
 if not conn then
-    error("Failed to connect to ubus")
+    Fail = 1
 end
 local status_codes = require("utils.status_code")
 local validations = require("utils.validation")
+local responses = require("utils.responses")
 local REQUIRED_FIELDS = {"username", "password"}
 local auth = {}
 
 function auth:login(response, request)
+    if(Fail == 1) then
+        return responses:failed_ubus_connnection()
+    end
     local data = request.body
     local missing_fields = validations:has_fields(data, REQUIRED_FIELDS) 
     if not (#missing_fields == 0) then
@@ -32,6 +37,9 @@ function auth:login(response, request)
 end
 
 function auth:logout(response, request)
+    if(Fail == 1) then
+        return responses:failed_ubus_connnection()
+    end
     local key = request:header("authorization")
     local destroy = conn:call("session", "destroy", {ubus_rpc_session = key})
     -- if not destroy then

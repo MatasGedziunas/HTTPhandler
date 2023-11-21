@@ -17,8 +17,13 @@ local routes = {
     },
     {
         method = "GET",
-        path = "/user$",
+        path = "/user",
         handler = "user_controller.index",
+    },
+    {
+        method = "GET",
+        path = "/res/",
+        handler = "user_controller"
     },
     -- POST
     {
@@ -46,7 +51,7 @@ local routes = {
     },
     {
         method = "POST",
-        path = "/user$",
+        path = "/user",
         handler = "user_controller.create",
         midleware = {"auth"}
     },

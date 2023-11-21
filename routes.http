@@ -26,7 +26,8 @@ GET http://localhost/api/user/show/Hellos
 Content-Type: application/json
 
 ###
-GET http://localhost/api/user/index
+GET http://localhost/api/user/index/
+Content-Type: application/json
 
 ###
 GET http://localhost/api/user/create
@@ -55,18 +56,24 @@ Authorization: e8662945f14038986e6c93aa71e0a5ed
 ###
 POST http://localhost/api/user/
 Content-Type: application/json
-Authorization: 589e1c71c4584a210de128ee364694a1
+Authorization: a02a2c898da13e460a5175b090edae4c
 
 { 
-    "username" : "admin20",
+    "username" : "admin2005",
     "password" : "admin01"
 }
 
 ###
 OPTIONS http://localhost/api/user/delete/1
+Content-Type: s
 
 ###
-POST http://localhost/api/user/login
+GET http://localhost/api/res/
+Content-Type: application/json
+
+
+###
+POST http://localhost/api/user/login/
 Content-Type: application/json
 
 {

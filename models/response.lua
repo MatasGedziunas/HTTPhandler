@@ -20,7 +20,7 @@ function response:set_content_type(type)
 end
 
 function response:set_sucess(data)
-    self.data.sucess = data
+    self.data.results = data
     return self
 end 
 
