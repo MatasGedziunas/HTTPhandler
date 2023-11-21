@@ -44,7 +44,7 @@ function parser:replace_pathParam_with_pattern(path)
         --     param = param:sub(1, -2) -- Remove the trailing "?"
         --     return "([^/]-)"
         -- end
-        return "([^/]-)"
+        return ""
     end)
     return pattern
 end

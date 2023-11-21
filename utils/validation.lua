@@ -22,7 +22,10 @@ function validator:validateHeaders(env)
     local headers = env.headers
     local failed_validations = {}
     if not table_contains(VALID_CONTENT_TYPES, headers["content-type"]) then
-        table.insert(failed_validations, "Invalid content type")
+        local pattern = string.gsub(content_type.FORM_DATA, "([%^%$%(%)%%%.%[%]%*%+%-%?])", "%%%1")
+        if not string.match(headers["content-type"], pattern) then
+            table.insert(failed_validations, "Invalid content type")
+        end
     end
     if not table_contains(VALID_REQUEST_METHODS, env.REQUEST_METHOD) then
         table.insert(failed_validations, "Request method not supported")

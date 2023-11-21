@@ -2,6 +2,9 @@ package.path = package.path .. ";/www/cgi-bin/?.lua;/www/?.lua"
 local parser = require("utils.parser")
 
 function split_string(inputstr, sep, init) 
+    if inputstr == nil then
+        return {}
+    end
     if init == nil then
         init = 0
     end
@@ -15,20 +18,35 @@ function split_string(inputstr, sep, init)
     return t
 end
 
+function table_count(tbl)
+    local counter = 0
+    for k, v in pairs(tbl) do
+        counter = counter + 1
+    end
+    return counter
+end
+
 function check_method_and_url(request_method, parsed_url, desired_request_method, desired_url)
     local parsed_path = parser:replace_pathParam_with_pattern(desired_url)
-    
-    if parsed_url and string.match(parsed_url, parsed_path) then
+    parsed_path = remove_trailing_slash(parsed_path)
+    if parsed_url and parsed_path == parsed_url then     
         
         if request_method == desired_request_method then
             return true, true
         else
             return false, true
-        end
-        
+        end   
     end
     return false, false
 end
+
+function remove_trailing_slash(str)
+    if string.sub(str, -1) == "/" then
+         str = string.sub(str, 1, -2)
+    end 
+    return str
+ end
+ 
 
 function table_concat(table) 
     local str = ""

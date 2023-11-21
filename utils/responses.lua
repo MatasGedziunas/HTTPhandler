@@ -25,4 +25,8 @@ function responses:method_not_found()
     return response
 end
 
+function responses:failed_ubus_connnection()
+    return response:set_error(status_code.INTERNAL_SERVER_ERROR):set_error("There has been a problem connecting to UBUS")
+end
+
 return responses
