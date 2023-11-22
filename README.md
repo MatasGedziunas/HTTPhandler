@@ -3,7 +3,7 @@
 # Getting started
 
 ## Dependencies used: 
-uhttpd, ubus, rpcd, cjson (https://luarocks.org/modules/openresty/lua-cjson).
+uhttpd, ubus, rpcd, uci(https://openwrt.org/docs/techref/uci),  cjson (https://luarocks.org/modules/openresty/lua-cjson).
 ## Launching
 Navigate to /www folder on your local computer and pull this git repository, lastly launch you uhttpd server to establish a connection to the API.
 
@@ -46,13 +46,70 @@ Many example routes are already provided in routes/route file:
         handler = "user_controller.delete",
         midleware = {"auth"}
 },
-{
-        method = "POST",
-        path = "/user/create",
-        handler = "user_controller",
-        midleware = {"auth"}
-},
 ~~~
+
+# Authentication
+
+If a route's middleware table has an element "auth",  in that case the api looks for an Authentication header value and validates the ubus_rpc_session key 
+
+# Database models
+
+The api uses the UCI system for storing data. New models can be created in utils/orm.lua file, with the imported varaible **Table** and the created tables must be global.
+
+## Fields in the table
+
+All tables **must** have a field `__tablename__` with the name of the config file in which information about this table will be stored. All config files are created in /etc/config.
+
+Other table columns are fields in the table and can be two types:
+
+"" - for an option,
+{} - for an option list.
+
+## Examples
+Examples of how to use the created orm (can be found in utils/orm.lua file):
+
+~~~
+local Table = require("uci_orm.table")
+
+-- Table of object
+User = Table({
+    __tablename__ = "user",
+    username = "",
+    password = "",
+    items = {},
+})
+
+-- Instance of an object
+local user_instance = User({
+    username = "Helloses",
+    password = "Pleases",
+    items = 1
+})
+-- Object gets created in database
+user_instance:save()
+-- Get all users
+local all_users = User.get:all()
+for key, tbl in pairs(all_users) do
+    for k, val in pairs(tbl) do
+        if(type(val) == "string") then
+            print(k .. " " .. val)
+        end
+    end
+end
+-- Get first user by its password
+User.get:where({password = "Test"}):first()
+-- Delete user
+User.get:where({username = "Helloses"}):delete()
+User.get:where({password = "pasw"}):limit(1):delete()
+~~~
+
+# Controllers
+
+You can create your own controllers and add methods to them in **app/controllers** folder.
+
+## Validation
+
+Before creating an 
 
 
 
