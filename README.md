@@ -11,6 +11,7 @@ Navigate to /www folder on your local computer and pull this git repository, las
 
 By default, to call the API on your local server all routes must start with: **http://localhost/__api__**
 All routes are defined in routes/route folder where each route has these fields:
+
 **method** = Supports "GET" or "POST",  
 
 **path** = path to which the router should match the request URL, parametres can be defined: {id} ; optional parameter: {id?}. 
