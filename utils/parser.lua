@@ -3,7 +3,8 @@ local cjson = require("cjson")
 local content_types = require("utils.content_type")
 local parser = {}
 
-function parser:parse_request_parametres(url)
+function parser:parse_request_parametres(url, path)
+    url = string.gsub(url, remove_trailing_slash(self:replace_pathParam_with_pattern(path)), "")
     local capturedValue = url:match(".*/([^/]+)$")
     if capturedValue then
         return capturedValue
@@ -11,6 +12,20 @@ function parser:parse_request_parametres(url)
         return nil
     end
 end
+
+function parser:remove_url_params(url, path)
+    -- Remove trailing slash from the path
+    -- print("cleanedPath: " .. path)
+    -- Find the starting index of the path in the URL
+    local _, finishIndex = path:find("{", 1, true)
+    -- If the path is found, keep everything before it
+    if finishIndex and #url >= finishIndex then
+        return url:sub(1, finishIndex-1)
+    else
+        return url
+    end
+end
+
 
 function parser:parse_request_url(url)
     local path = string.match(url, "/api/(.*)")

@@ -2,10 +2,9 @@ package.path = package.path .. ";/www/cgi-bin/?.lua;/www/?.lua"
 require "utils.orm"
 local cjson = require("cjson")
 local parser = require("utils.parser")
-local user_model = require("models.user")
 local content_type = require("utils.content_type")
 local status_code = require("utils.status_code")
-local validations = require "utils.validation"
+local validations = require "validations.validation"
 local responses = require("utils.responses")
 local user = {}
 local DEFAULT_VALIDATIONS = {"min_length", "max_length"}
@@ -64,6 +63,9 @@ end
 function user:delete(response, request, id)  
     if not id then
         return responses:parameter_not_found("id")
+    end
+    if(not user_exists(id)) then
+        return response:set_sucess("User with username " .. id .. " does not exist")
     end
     User.get:where({username = id}):delete()
     return response:set_status_code(status_code.ACCEPTED):set_content_type(content_type.JSON):set_sucess("A USER WITH ID " .. id .. " HAS BEEN DELETED")         

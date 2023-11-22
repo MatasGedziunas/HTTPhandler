@@ -10,21 +10,27 @@ local routes = {
         path = "/user/index",
         handler = "user_controller.index",
     },
+    -- {
+    --     method = "GET",
+    --     path = "/user/{id}",
+    --     handler = "user_controller.show",
+    -- },
     {
         method = "GET",
-        path = "/user/{id}",
-        handler = "user_controller.show",
-    },
-    {
-        method = "GET",
-        path = "/user",
-        handler = "user_controller.index",
-    },
-    {
-        method = "GET",
-        path = "/res/",
+        path = "/res/{id}",
         handler = "user_controller"
     },
+    {
+        method = "GET",
+        path = "/users/{id}",
+        handler = "user_controller.show"
+    },
+    {
+        method = "GET",
+        path = "/users",
+        handler = "user_controlersara.as"
+    },
+    
     -- POST
     {
         method = "POST",
@@ -48,6 +54,11 @@ local routes = {
         path = "/user/logout",
         handler = "authentication_controller.logout",
         midleware = {"auth"}
+    },
+    {
+        method = "GET",
+        path = "/user",
+        handler = "user_controller.index",
     },
     {
         method = "POST",

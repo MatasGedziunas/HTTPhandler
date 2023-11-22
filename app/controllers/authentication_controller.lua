@@ -6,7 +6,7 @@ if not conn then
     Fail = 1
 end
 local status_codes = require("utils.status_code")
-local validations = require("utils.validation")
+local validations = require("validations.validation")
 local responses = require("utils.responses")
 local REQUIRED_FIELDS = {"username", "password"}
 local auth = {}

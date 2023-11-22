@@ -1,11 +1,11 @@
 package.path = package.path .. ";/www/cgi-bin/?.lua;/www/?.lua"
 local cjson = require("cjson")
 local parser = require("utils.parser")
-local validator = require("utils.validation")
+local validator = require("validations.validation")
 require("utils.helper")
 
 local function send_response(response)
-    uhttpd.send("Status:" .. response.status_code.code .. "\r\n")
+    uhttpd.send("Status:" .. response.status_code.code .. " " .. response.status_code.message .. "\r\n")
     uhttpd.send("Content-Type:" .. response.content_type .. "\r\n\r\n")
     -- for key, val in pairs(response.headers) do
     --     uhttpd.send(key..":" .. val .. "\r\n")

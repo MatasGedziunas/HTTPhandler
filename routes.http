@@ -20,17 +20,22 @@ GET http://localhost/api/file/hello.txt
 }
 ###
 GET http://localhost/api/fiadsle/dasdload?=
-
-###
-GET http://localhost/api/user/show/Hellos
 Content-Type: application/json
 
 ###
-GET http://localhost/api/user/index/
+GET http://localhost/api/user/show/
 Content-Type: application/json
 
 ###
-GET http://localhost/api/user/create
+GET http://localhost/api/user/
+Content-Type: application/json
+
+###
+GET http://localhost/api/user/create/
+Content-Type: application/json
+
+###
+GET http://localhost/api/users/
 Content-Type: application/json
 
 ###
@@ -50,13 +55,13 @@ aaaaa
 
 ###
 POST http://localhost/api/user/delete/woohoo
-Content-Type: multipart/form-data
-Authorization: e8662945f14038986e6c93aa71e0a5ed
+Content-Type: multipart/form-data;
+Authorization: f248197069e7bb92e4f10fdc2910f9f5
 
 ###
 POST http://localhost/api/user/
 Content-Type: application/json
-Authorization: a02a2c898da13e460a5175b090edae4c
+Authorization: e56ff6001fabf0d81f2ae35bc606d034
 
 { 
     "username" : "admin2005",
@@ -83,5 +88,5 @@ Content-Type: application/json
 
 ###
 POST http://localhost/api/user/logout
-Authorization: 5528662d11870068162564dddbe89c45
+Authorization: 60ec228deb4a51f695ea08831fe956b5
 Content-Type: application/json

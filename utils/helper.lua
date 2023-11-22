@@ -26,12 +26,15 @@ function table_count(tbl)
     return counter
 end
 
-function check_method_and_url(request_method, parsed_url, desired_request_method, desired_url)
+function check_method_and_url(request_method, start_url, desired_request_method, desired_url)
     local parsed_path = parser:replace_pathParam_with_pattern(desired_url)
     parsed_path = remove_trailing_slash(parsed_path)
+    local parsed_url = remove_trailing_slash(parser:remove_url_params(start_url, desired_url))
+    -- print(parsed_url, parsed_path)
     if parsed_url and parsed_path == parsed_url then     
-        
         if request_method == desired_request_method then
+            -- print(parsed_path, parsed_url)
+            -- print("yep: ",desired_url, parsed_url)
             return true, true
         else
             return false, true

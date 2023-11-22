@@ -3,7 +3,7 @@ require("utils.helper")
 local status_codes = require("utils.status_code")
 local content_types = require("utils.content_type")
 local auth_checker = require("security.authentication_checker")
-local response = require("models.response")
+local response = require("app.models.response")
 local middleware = {}
 
 function middleware:handle_request(request, route_middleware) 
