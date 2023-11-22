@@ -45,7 +45,13 @@ Many example routes are already provided in routes/route file:
         path = "/user/delete/{id}",
         handler = "user_controller.delete",
         midleware = {"auth"}
-}
+},
+{
+        method = "POST",
+        path = "/user/create",
+        handler = "user_controller",
+        midleware = {"auth"}
+},
 ~~~
 
 
