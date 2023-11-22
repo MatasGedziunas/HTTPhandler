@@ -63,6 +63,7 @@ All tables **must** have a field `__tablename__` with the name of the config fil
 Other table columns are fields in the table and can be two types:
 
 "" - for an option,
+
 {} - for an option list.
 
 ## Examples
