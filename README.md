@@ -19,7 +19,7 @@ All routes are defined in routes/route folder where each route has these fields:
 ## Examples
 Many example routes are already provided in routes/route file:
 
-``` 
+~~~ 
 {
         method = "GET",
         path = "/user/index",
@@ -42,7 +42,7 @@ Many example routes are already provided in routes/route file:
         handler = "user_controller.delete",
         midleware = {"auth"}
 }
-```
+~~~
 
 
 
