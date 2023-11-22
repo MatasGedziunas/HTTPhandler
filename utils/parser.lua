@@ -66,10 +66,12 @@ end
 -- RETURNS A TABLE WITH THE PARSED PARTS
 function parser:parse_url_query(parsed_url)
     local data = {}
-    for part in parsed_url:gmatch("([^&]+)") do
-        local key, value = string.match(part, "([^=]+)=(.+)")
-        if key and value then
-            data[key] = value
+    if parsed_url then
+        for part in parsed_url:gmatch("([^&]+)") do
+            local key, value = string.match(part, "([^=]+)=(.+)")
+            if key and value then
+                data[key] = value
+            end
         end
     end
     return data

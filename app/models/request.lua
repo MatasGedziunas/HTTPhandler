@@ -51,7 +51,13 @@ end
 
 function request:parsed_url()
     if self.headers then
-        return parser:parse_request_url(self.headers.URL)
+        local parsed_url = parser:parse_request_url(self.headers.URL)
+        if parsed_url then
+            return parsed_url    
+        else
+            return ""
+        end
+         
     end
 end
 
