@@ -3,14 +3,16 @@ x = uci.cursor()
 
 local function removeFieldsStartingWithDot(data)
     local newData = {}
-    for _, tbl in pairs(data) do
-        local temp = {}
-        for key, val in pairs(tbl) do
-            if not string.match(key, "^%s*%.") then
-                temp[key] = val
-            end
-        end    
-        table.insert(newData, temp)        
+    if data then
+        for _, tbl in pairs(data) do
+            local temp = {}
+            for key, val in pairs(tbl) do
+                if not string.match(key, "^%s*%.") then
+                    temp[key] = val
+                end
+            end    
+            table.insert(newData, temp)        
+        end
     end
     return newData
 end

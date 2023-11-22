@@ -35,7 +35,7 @@ local routes = {
     {
         method = "POST",
         path = "/user/create",
-        handler = "user_controller.create",
+        handler = "user_controller",
         midleware = {"auth"}
     },
     {
