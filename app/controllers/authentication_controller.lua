@@ -15,15 +15,16 @@ function auth:login(response, request)
     if(Fail == 1) then
         return responses:failed_ubus_connnection()
     end
-    local data = request.body
+    
+    local data = request.get_body()
     local missing_fields = validations:has_fields(data, REQUIRED_FIELDS) 
     if not (#missing_fields == 0) then
         response:set_status_code(status_codes.BAD_REQUEST)
         :set_error("Missing fields: " .. table_concat(missing_fields))
         return response
     end
-    local username = request:option("username")
-    local password = request:option("password")
+    local username = request.option("username")
+    local password = request.option("password")
     
     local login_info = conn:call("session", "login", {username = username, password = password})
     if not login_info then
@@ -40,7 +41,7 @@ function auth:logout(response, request)
     if(Fail == 1) then
         return responses:failed_ubus_connnection()
     end
-    local key = request:header("authorization")
+    local key = request.header("authorization")
     local destroy = conn:call("session", "destroy", {ubus_rpc_session = key})
     -- if not destroy then
     --     return response:set_status_code(status_codes.INTERNAL_SERVER_ERROR):set_error("Unable to log out")

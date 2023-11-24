@@ -95,8 +95,9 @@ function parser:parse_json(json)
 end 
 
 function parser:parse_formdata(body)
-    local parts = Multipart(body, "boundary")
+    local parts = Multipart(body, "-----------------------------275960504307967009023195")
     local parsed_data = {}
+    print(#parts)
     for _, part in ipairs(parts) do
         
         if part.filename then

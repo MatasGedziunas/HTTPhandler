@@ -46,7 +46,7 @@ function check_method_and_url(request_method, start_url, desired_request_method,
 end
 
 function remove_trailing_slash(str)
-    if string.sub(str, -1) == "/" then
+    if str and string.sub(str, -1) == "/" then
          str = string.sub(str, 1, -2)
     end 
     return str
@@ -113,7 +113,9 @@ function table_contains(table, value)
 end
 
 function print_table(table)
-    for key, val in pairs(table) do
-        print(key .. " : " .. val)
+    if table then
+        for key, val in pairs(table) do
+            print(key .. " : " .. val)
+        end
     end
 end 

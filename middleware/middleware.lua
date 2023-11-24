@@ -8,7 +8,7 @@ local middleware = {}
 
 function middleware:handle_request(request, route_middleware) 
     if(table_contains(route_middleware, "auth")) then
-        local auth_key = request:header("authorization")
+        local auth_key = request.header("authorization")
         if not auth_key then
             return false, response:set_status_code(status_codes.BAD_REQUEST):set_error("Missing authentication key")
         end 

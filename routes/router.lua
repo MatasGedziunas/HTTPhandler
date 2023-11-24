@@ -18,7 +18,7 @@ function router:route(endpoint)
     local param_not_found
     local method_not_found = 0
     for i, route in ipairs(routes) do
-        local check_method, check_url = check_method_and_url(request:get_method(), request:parsed_url(), route.method, route.path)
+        local check_method, check_url = check_method_and_url(request.get_method(), request.parsed_url(), route.method, route.path)
         if check_method and check_url then
             if route.handler == nil then
                 endpoint.send(response:set_status_code(status_code.INTERNAL_SERVER_ERROR):set_error("Route has no handler function set"))
@@ -33,7 +33,7 @@ function router:route(endpoint)
             local splited_handler_string = split_string(route.handler, ".")
             local controller, method = splited_handler_string[1], splited_handler_string[2]
             if method == nil then
-                method = set_default_function(request:get_method())
+                method = set_default_function(request.get_method())
             end
             local controller_path = "/www/app/controllers/" .. controller .. ".lua"
             local controller_file = loadfile(controller_path)
@@ -42,14 +42,14 @@ function router:route(endpoint)
                 if user_controller and user_controller[method] and type(user_controller[method]) == "function" then
                     local param_needed, param_name = is_route_id_needed(route.path)
                     if param_needed then
-                        request:add_param(parser:parse_request_parametres(request:parsed_url(), route.path))
-                        if request.param == nil then
+                        local param = parser:parse_request_parametres(request.parsed_url(), route.path)
+                        if param == nil then
                             if not param_not_found then
                                 param_not_found = param_name
                             end
                             -- endpoint.send(responses:parameter_not_found(param_name))
                         else
-                            endpoint.send(user_controller[method](0, response, request, request.param))
+                            endpoint.send(user_controller[method](0, response, request, param))
                             return
                         end
                     else

@@ -48,7 +48,7 @@ Content-Type: application/json
 
 ###
 POST http://localhost/api/user/create
-Authorization: 5d456a13674508a7038a9651e70c9fde
+Authorization: 323058c35ebdc99cf989f7cda255d54b
 Content-Type: multipart/form-data; boundary=---------------------------275960504307967009023195
 
 -----------------------------275960504307967009023195
@@ -69,11 +69,11 @@ Authorization: f248197069e7bb92e4f10fdc2910f9f5
 ###
 POST http://localhost/api/user/
 Content-Type: application/json
-Authorization: b76f559198a4de85543223d2af1d57fa
+Authorization: b4a7cd0cda315c2d30ae4ff0c2a48cbc
 
 { 
-    "username" : "admin2005",
-    "password" : "admin01"
+    "username" : "adm05",
+    "password" : "adm1"
 }
 
 ###

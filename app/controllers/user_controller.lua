@@ -11,7 +11,7 @@ local DEFAULT_VALIDATIONS = {"min_length", "max_length"}
 local REQUIRED_FIELDS = {"username", "password"}
 
 function user:create(response, request)
-    local data = request.body
+    local data = request.get_body()
     local missing_fields = validations:has_fields(data, REQUIRED_FIELDS) 
     if not (#missing_fields == 0) then
         response:set_status_code(status_code.BAD_REQUEST)
@@ -24,7 +24,7 @@ function user:create(response, request)
     if is_two_dimensional_table_empty(fails) then
         if user_exists(data.username) then
             response:set_error("User with username " .. data.username .. " has already been created, usernames have to be unique"):set_status_code(status_code.BAD_REQUEST)
-        else
+        else    
             local user = User({
                 username = data.username,
                 password = data.password,
@@ -50,7 +50,7 @@ function user_exists(id)
 end
 
 function user:index(response, request)
-    return nil
+    return response:set_sucess(User.get:all())
 end
 
 function user:show(response, request, id)

@@ -118,16 +118,16 @@ Request table gets created at the start of the pipeline in the endpoint.lua file
 
 ~~~lua
 local response = require("app.models.response")
-endpoint.request = request:add_body(parser:parse_request_data(self))
+endpoint.request = request.add_body(parser:parse_request_data(self))
         :add_headers(endpoint.env.headers)
-        :add_query(parser:parse_url_query(request:parsed_url()))
+        :add_query(parser:parse_url_query(request.parsed_url()))
         :add_method(parser:get_request_method(endpoint.env))
 ~~~
 
 It supports all the methods above and add_param to add a parameter field in the request table.
 
 ~~~lua
-request:add_param(parser:parse_request_parametres(request:parsed_url(), route.path))
+request.add_param(parser:parse_request_parametres(request.parsed_url(), route.path))
 ~~~
 
 # Response
