@@ -31,7 +31,7 @@ In the request body, data can be passed by 3 types: json, multipart/form
 ## Examples
 Many example routes are already provided in routes/route file:
 
-~~~ 
+~~~lua 
 {
         method = "GET",
         path = "/user/index",
