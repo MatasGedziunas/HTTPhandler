@@ -95,9 +95,7 @@ function parser:parse_json(json)
 end 
 
 function parser:parse_formdata(body)
-    print(body)
-    local parts = Multipart(body, "boundary-value")
-
+    local parts = Multipart(body, "boundary")
     local parsed_data = {}
     for _, part in ipairs(parts) do
         

@@ -50,7 +50,7 @@ function user_exists(id)
 end
 
 function user:index(response, request)
-    return response:set_sucess(User.get:all())
+    return nil
 end
 
 function user:show(response, request, id)

@@ -2,20 +2,25 @@ package.path = package.path .. ";/www/cgi-bin/?.lua;/www/?.lua"
 local cjson = require("cjson")
 local parser = require("utils.parser")
 local validator = require("validations.validation")
+local responses = require("utils.responses")
 require("utils.helper")
 
 local function send_response(response)
+    if not response then
+        response = responses:no_response()
+    end
     uhttpd.send("Status:" .. response.status_code.code .. " " .. response.status_code.message .. "\r\n")
     uhttpd.send("Content-Type:" .. response.content_type .. "\r\n\r\n")
     -- for key, val in pairs(response.headers) do
     --     uhttpd.send(key..":" .. val .. "\r\n")
     -- end
-    if(response.error_message ~= nil) then
+    if (response.error_message ~= nil) then
         uhttpd.send(cjson.encode(response.error_message))
     else
         uhttpd.send(cjson.encode(response.data))
     end
     uhttpd.send("\r\n")
+
 end
 
 -- Main body required by uhhtpd-lua plugin

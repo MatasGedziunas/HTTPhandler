@@ -26,11 +26,15 @@ function responses:method_not_found()
 end
 
 function responses:failed_ubus_connnection()
-    return response:set_error(status_code.INTERNAL_SERVER_ERROR):set_error("There has been a problem connecting to UBUS")
+    return response:set_status_code(status_code.INTERNAL_SERVER_ERROR):set_error("There has been a problem connecting to UBUS")
 end
 
 function responses:controller_not_found()
-    return response:set_error(status_code.INTERNAL_SERVER_ERROR):set_error("Controller file not found")
+    return response:set_status_code(status_code.INTERNAL_SERVER_ERROR):set_error("Controller file not found")
+end
+
+function responses:no_response()
+    return response:set_status_code(status_code.INTERNAL_SERVER_ERROR):set_error("Dispatcher received empty response object")
 end
 
 return responses

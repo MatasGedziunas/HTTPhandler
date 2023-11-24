@@ -39,7 +39,7 @@ function router:route(endpoint)
             local controller_file = loadfile(controller_path)
             if controller_file then
                 local user_controller = loadfile(controller_path)()
-                if user_controller[method] and type(user_controller[method]) == "function" then
+                if user_controller and user_controller[method] and type(user_controller[method]) == "function" then
                     local param_needed, param_name = is_route_id_needed(route.path)
                     if param_needed then
                         request:add_param(parser:parse_request_parametres(request:parsed_url(), route.path))
@@ -74,7 +74,7 @@ function router:route(endpoint)
     -- elseif found ~= 1 and method_not_found then
     --     endpoint.send(responses:method_not_found())
     elseif check_url_fail == 1 and found ~= 1 then
-        endpoint.send(response:set_error("Url exists, however request method not supported"))
+        endpoint.send(response:set_error("Url exists, however request method not supported"):set_status_code(status_code.BAD_REQUEST))
     elseif found ~= 1 then
         endpoint.send(response:set_status_code(status_code.NOT_FOUND)
                 :set_error("Route not found"))
