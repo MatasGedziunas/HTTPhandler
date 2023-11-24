@@ -117,18 +117,53 @@ User.get:where({password = "pasw"}):limit(1):delete()
 Request table gets created at the start of the pipeline in the endpoint.lua file.
 
 ~~~lua
-local response = require("app.models.response")
-endpoint.request = request.add_body(parser:parse_request_data(self))
-        :add_headers(endpoint.env.headers)
-        :add_query(parser:parse_url_query(request.parsed_url()))
-        :add_method(parser:get_request_method(endpoint.env))
+local request = require("app.models.request")
+endpoint.request = request(parser:parse_request_data(self), parser:parse_url_query(parsed_url),
+        endpoint.env.headers, parser:get_request_method(endpoint.env))
 ~~~
 
-It supports all the methods above and add_param to add a parameter field in the request table.
+The object is encapsulated and can be accesed by the following methods:
 
 ~~~lua
-request.add_param(parser:parse_request_parametres(request.parsed_url(), route.path))
+local option = function(option)
+        if self._body then
+            return self._body[option]
+        end
+    end
+
+    local query = function(option)
+        if self._query then
+            return self._query[option]
+        end
+    end
+
+    local header = function(option)
+        if self._headers then
+            return self._headers[option]
+        end
+    end
+
+    local parsed_url = function()
+        if self._headers then
+            local parsed_url = parser:parse_request_url(self._headers.URL)
+            if parsed_url then
+                return parsed_url    
+            else
+                return ""
+            end
+        end
+    end
+
+    local get_method = function()
+        return self._method
+    end
+
+    local get_body = function()
+        return self._body
+    end
 ~~~
+
+For example, to get the entire request body data you can do: `local body = request.get_body()` 
 
 # Response
 
