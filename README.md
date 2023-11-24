@@ -58,7 +58,7 @@ Many example routes are already provided in routes/route file:
 
 # Authentication
 
-If a route's middleware table has an element "auth",  in that case the api looks for an Authentication header value and validates the ubus_rpc_session key 
+If a route's middleware table has an element "auth",  in that case, the api looks for an Authentication header value and validates the ubus_rpc_session key. Key validation happens in security/authentication_checker.lua file.
 
 # Database models
 
