@@ -7,6 +7,11 @@ local routes = {
     },
     {
         method = "GET",
+        path = "/user/shows/{id}",
+        handler = "user_controller.show",
+    },
+    {
+        method = "GET",
         path = "/user/index",
         handler = "user_controller.index",
     },

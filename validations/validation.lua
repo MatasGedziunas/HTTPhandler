@@ -37,12 +37,8 @@ function validator:validate_content(data, expected_content_type)
 
 end
 
-function validator:validate_env(fields, required_fields, validations)
+function validator:validate_env(fields, validations)
     local fails = {}
-    -- fails["Field_not_defined"] = self:has_fields(fields, required_fields)
-    -- if not #fails["Field_not_defined"] == 0 then
-    --     return fails
-    -- end
     for _, validation in ipairs(ALL_VALIDATIONS) do
         fails[validation] = {}
     end
@@ -131,7 +127,7 @@ function validator:is_email(field)
 end
 
 function validator:is_phone_number(field)
-    return ((not string.match(field, "%a")) and self.min_length(field, 8) and self.max_length(field, 20))
+    return (not string.match(field, "%a") and #field == 12 and string.sub(field, 1, 4) == "+370")
 end 
 
 local function check_date_pattern(field, pattern)
@@ -149,16 +145,11 @@ local function check_date_pattern(field, pattern)
             if month > 12 and day > 31 then
                 return false
             end
-            print("Year:", year)
-            print("Month:", month)
-            print("Day:", day)
             return true
         else
-            print("Invalid date components (not integers)")
             return false
         end
     else
-        print("Date does not match the expected format")
         return false
     end
 end

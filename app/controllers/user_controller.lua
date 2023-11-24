@@ -20,7 +20,7 @@ function user:create(response, request)
     end
     local fields = {data.username, data.password}
     local validation_fields = {DEFAULT_VALIDATIONS, DEFAULT_VALIDATIONS}
-    local fails = validations:validate_env(fields, REQUIRED_FIELDS, validation_fields)
+    local fails = validations:validate_env(fields, validation_fields)
     if is_two_dimensional_table_empty(fails) then
         if user_exists(data.username) then
             response:set_error("User with username " .. data.username .. " has already been created, usernames have to be unique"):set_status_code(status_code.BAD_REQUEST)

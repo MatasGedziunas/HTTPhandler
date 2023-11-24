@@ -23,11 +23,15 @@ GET http://localhost/api/fiadsle/dasdload?=
 Content-Type: application/json
 
 ###
-GET http://localhost/api/user/show/
+GET http://localhost/api/user/shows/
 Content-Type: application/json
 
 ###
 GET http://localhost/api/user/
+Content-Type: application/json
+
+###
+GET http://localhost/api
 Content-Type: application/json
 
 ###
@@ -40,7 +44,7 @@ Content-Type: application/json
 
 ###
 POST http://localhost/api/user/create
-Authorization: 3b14e5eab0a2a471abbc035594c8127f
+Authorization: 3035bf5b58e70d17d94dcafa79043042
 Content-Type: multipart/form-data; boundary=---------------------------275960504307967009023195
 
 -----------------------------275960504307967009023195
@@ -61,7 +65,7 @@ Authorization: f248197069e7bb92e4f10fdc2910f9f5
 ###
 POST http://localhost/api/user/
 Content-Type: application/json
-Authorization: e56ff6001fabf0d81f2ae35bc606d034
+Authorization: 3035bf5b58e70d17d94dcafa79043042
 
 { 
     "username" : "admin2005",
@@ -73,7 +77,7 @@ OPTIONS http://localhost/api/user/delete/1
 Content-Type: s
 
 ###
-GET http://localhost/api/res/
+GET http://localhost/api/res/1
 Content-Type: application/json
 
 
