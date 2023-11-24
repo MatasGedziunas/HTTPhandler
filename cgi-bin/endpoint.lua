@@ -24,8 +24,8 @@ function endpoint:handle_request()
         :add_headers(endpoint.env.headers)
         :add_query(parser:parse_url_query(request:parsed_url()))
         :add_method(parser:get_request_method(endpoint.env))
-
     router:route(self)
+    
 end
 
 

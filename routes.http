@@ -39,12 +39,16 @@ GET http://localhost/api/user/create/
 Content-Type: application/json
 
 ###
+GET http://localhost/api/test
+Content-Type: application/json
+
+###
 GET http://localhost/api/users/
 Content-Type: application/json
 
 ###
 POST http://localhost/api/user/create
-Authorization: 3035bf5b58e70d17d94dcafa79043042
+Authorization: 5d456a13674508a7038a9651e70c9fde
 Content-Type: multipart/form-data; boundary=---------------------------275960504307967009023195
 
 -----------------------------275960504307967009023195
@@ -65,7 +69,7 @@ Authorization: f248197069e7bb92e4f10fdc2910f9f5
 ###
 POST http://localhost/api/user/
 Content-Type: application/json
-Authorization: 3035bf5b58e70d17d94dcafa79043042
+Authorization: b76f559198a4de85543223d2af1d57fa
 
 { 
     "username" : "admin2005",
