@@ -12,7 +12,7 @@ Navigate to /www folder on your local computer and pull this git repository, las
 
 # Routes
 
-By default, to call the API on your local server all routes must start with: **http://localhost/__api__**
+By default, to call the API on your local server all routes must start with: **http://localhost/api**
 
 By default, to call any route in the API "host", "user-agent", "content-type" headers are required. Supported "content-type" are "multipart/form-data", "application/x-www-form-urlencoded", "application/json".  
 
