@@ -112,6 +112,65 @@ User.get:where({username = "Helloses"}):delete()
 User.get:where({password = "pasw"}):limit(1):delete()
 ~~~
 
+# Request
+
+Request table gets created at the start of the pipeline in the endpoint.lua file.
+
+~~~lua
+local response = require("app.models.response")
+endpoint.request = request:add_body(parser:parse_request_data(self))
+        :add_headers(endpoint.env.headers)
+        :add_query(parser:parse_url_query(request:parsed_url()))
+        :add_method(parser:get_request_method(endpoint.env))
+~~~
+
+It supports all the methods above and add_param to add a parameter field in the request table.
+
+~~~lua
+request:add_param(parser:parse_request_parametres(request:parsed_url(), route.path))
+~~~
+
+# Response
+
+Response object needs to be imported from the app/models/response.lua file:
+
+~~~lua
+local response = require("app.models.response")
+~~~
+
+It supports following methods:
+
+**set_status_code** - by default 200,
+
+**set_content_type** - by default application/json,
+
+**set_sucess** - response body data to be returned if no errors occour.
+
+**set_error** - response body to be returned with errors that occoured
+
+~~~lua
+response:set_status_code(status_code.ACCEPTED):set_content_type(content_type.JSON):set_sucess("A USER WITH ID " .. id .. " HAS BEEN DELETED")    
+
+response:set_status_code(status_code.INTERNAL_SERVER_ERROR):set_error("Controller file not found")
+~~~
+
+Some default responses are implemented in utils/responses.lua file, for example:
+
+~~~lua
+function responses:failed_ubus_connnection()
+    return response:set_status_code(status_code.INTERNAL_SERVER_ERROR):set_error("There has been a problem connecting to UBUS")
+end
+
+function responses:controller_not_found()
+    return response:set_status_code(status_code.INTERNAL_SERVER_ERROR):set_error("Controller file not found")
+end
+
+function responses:no_response()
+    return response:set_status_code(status_code.INTERNAL_SERVER_ERROR):set_error("Dispatcher received empty response object")
+end
+~~~
+
+
 # Controllers
 
 You can create your own controllers and add methods to them in **app/controllers** folder.
