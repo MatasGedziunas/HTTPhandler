@@ -77,7 +77,7 @@ Other table columns are fields in the table and can be two types:
 ## Examples
 Examples of how to use the created orm (can be found in utils/orm.lua file):
 
-~~~
+~~~lua
 local Table = require("uci_orm.table")
 
 -- Table of object
@@ -128,7 +128,7 @@ Makes queries and searches for users in the Users table (Users config file). The
 
 if we create a route: 
 
-~~~
+~~~lua
 {
         method = "GET",
         path = "/user/show/{id?}",
@@ -174,7 +174,7 @@ To call these validations in the controller, you can use `validate_env` method. 
 
 Example:
 
-~~~
+~~~lua
 local fields = {data.username, data.password}
 local validation_fields = {{"min_length", "max_length", "no_numbers"}, {"min_length", "max_length"}}
 ~~~
