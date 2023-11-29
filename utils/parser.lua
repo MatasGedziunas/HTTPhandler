@@ -1,6 +1,7 @@
 package.path = package.path .. ";/www/cgi-bin/?.lua;/www/?.lua"
 local cjson = require("cjson")
 local Multipart = require('multipart')
+local file_manager = require("utils.file_manager")
 local content_types = require("utils.content_type")
 local parser = {}
 
@@ -94,26 +95,16 @@ function parser:parse_json(json)
     end
 end 
 
-function parser:parse_formdata(body)
-    local parts = Multipart(body, "-----------------------------275960504307967009023195")
-    local parsed_data = {}
-    print(#parts)
-    for _, part in ipairs(parts) do
-        
-        if part.filename then
-            -- File data
-            parsed_data[part.name] = {
-                filename = part.filename,
-                content_type = part["Content-Type"],
-                data = part.body,
-            }
-        else
-            -- Regular form field
-            print(part.name)
-            parsed_data[part.name] = part.body
+function parser:parse_formdata(body, content_type)
+    local parts = Multipart(body, content_type)
+    local parsed_data = parts:get_all_with_arrays()
+    local data = {}
+    for k, v in pairs(parsed_data) do
+        local param = parts:get(k)
+        if(param ~= nil and string.match(param.headers[2], "Content-Type")) then
+            
         end
     end
-
     return parsed_data
 end
 
@@ -133,7 +124,7 @@ function parser:parse_request_data(endpoint)
     if content_type == content_types.JSON then
         return parser:parse_json(data)
     elseif content_type and string.match(content_type, "multipart/form%-data") then
-        return parser:parse_formdata(data)
+        return parser:parse_formdata(data, content_type)
     elseif content_type == content_types.FORM_URLENCODED then
         return parser:parse_formurlencoded(data)
     end

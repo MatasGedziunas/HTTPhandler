@@ -4,7 +4,7 @@
 
 ## Dependencies used: 
 
-uhttpd, ubus, rpcd, uci(https://openwrt.org/docs/techref/uci),  cjson (https://luarocks.org/modules/openresty/lua-cjson).
+uhttpd, ubus, rpcd, uci(https://openwrt.org/docs/techref/uci),  cjson (https://luarocks.org/modules/openresty/lua-cjson), Multipart(https://github.com/Kong/lua-multipart/tree/master).
 
 ## Launching
 
